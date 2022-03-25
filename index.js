@@ -3,7 +3,7 @@ import restaurantRoutes from './routes/restaurants.js'
 import menuRoutes from './routes/menu.js'
 
 const app = express()
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.NODEJS_PORT ?? 3000
 
 app.use(restaurantRoutes)
 app.use(menuRoutes)

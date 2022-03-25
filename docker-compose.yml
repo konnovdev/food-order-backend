@@ -1,0 +1,13 @@
+version: "2"
+services:
+  node:
+    image: "node:17.8.0-stretch-slim"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODEJS_PORT=80
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "4444:80"
+    command: "npm run serve"
