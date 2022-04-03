@@ -15,7 +15,11 @@
     "express": "^4.17.3",
     "swagger": "^0.7.5",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "@envelop/apollo-server-errors": "^3.2.0",
+    "@graphql-yoga/node": "^2.0.0",
+    "graphql": "^15.4.0",
+    "graphql-import": "^1.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

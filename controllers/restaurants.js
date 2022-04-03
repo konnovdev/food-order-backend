@@ -15,6 +15,7 @@ let restaurants = [
     },
 ]
 
-export const getAll = (req, res) => {
+const getAll = (req, res) => {
     res.status(200).json(restaurants)
 }
+export {getAll, restaurants}
