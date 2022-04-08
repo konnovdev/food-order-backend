@@ -5,9 +5,10 @@ import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { importSchema } from "graphql-import";
 import Query from "./resolvers/Query.js"
-// import { ApolloServer, PubSub } from "apollo-server-express";
 import { createServer } from '@graphql-yoga/node'
 import { useApolloServerErrors } from '@envelop/apollo-server-errors'
+import orderRoutes from "./routes/order.js"
+
 const app = express()
 const PORT = process.env.NODEJS_PORT ?? 80
 
@@ -44,6 +45,7 @@ app.use(SWAGGER_URL, swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use(restaurantRoutes)
 app.use(menuRoutes)
+app.use(orderRoutes)
 app.use('/graphql', graphQLServer)
 
 
