@@ -1,3 +1,5 @@
+import {pubsub} from "../resolvers/context.js"
+
 let orderList = [
     {
         "id": "order001",
@@ -96,10 +98,22 @@ let orderList = [
         ]
     }
 ]
-
+/**
+ * @swagger
+ * /api/order:
+ *   post:
+ *     summary: post order as json type
+ *     responses:
+ *       'graphql': publish who subcribe order
+ *       '200':
+ *         description: a list of current order
+ */
 const postOrder = (req, res)=>{
-    console.log("postOrder got ", req.query)
-    orderList = [...orderList, req.query]
+    console.log("postOrder got ", req.body)
+    orderList = [...orderList, req.body]
+    pubsub.publish('order', {order:
+        orderList
+    })
     res.status(200).send(orderList)
 
     // res.status(200).list()
@@ -107,5 +121,8 @@ const postOrder = (req, res)=>{
 const getAllOrder = (req, res)=>{
     res.status(200).send(orderList)
 }
+const addToOrderList = (element)=>{
+    orderList = [...orderList, element]
+}
 
-export {postOrder, getAllOrder}
+export {postOrder, getAllOrder, orderList, addToOrderList}

@@ -2,6 +2,48 @@ type Query {
     books: [Book]
     queryTest: String!
     queryRestaurants: [Restaurant]
+    queryOrder: Order
+    hello:String
+}
+type Mutation{
+    createOrder(order:inputOrder): String
+    broadcastRandomNumber: Float
+}
+type Subscription{
+    order(id:String):[Order]
+    globalCounter: Float
+    hello:[String]
+    numberIncremented: Int
+}
+input inputOrder{
+    id: String
+    tableNo: String
+    totalPrice: Int
+    time: String
+    items: [inputItem]
+}
+input inputItem{
+    id:String
+    name: String
+    price: Int
+    quantity: Int
+    note: String
+    status: String
+}
+type Order{
+    id: String
+    tableNo: String
+    totalPrice: Int
+    time: String
+    items: [Item]
+}
+type Item{
+    id:String
+    name: String
+    price: Int
+    quantity: Int
+    note: String
+    status: String
 }
 type Restaurant{
     id: ID
