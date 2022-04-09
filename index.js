@@ -16,13 +16,8 @@ import {SubscriptionServer} from "subscriptions-transport-ws"
 import cors from "cors"
 import {execute, subscribe} from "graphql"
 
-
-
 const app = express();
 const PORT = process.env.NODEJS_PORT ?? 80;
-
-
-
 const SWAGGER_URL = "/docs";
 
 // https://swagger.io/specification/#infoObject
@@ -42,14 +37,13 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(SWAGGER_URL, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 app.use(express.json());
 app.use(cors())
 app.use(restaurantRoutes);
 app.use(menuRoutes);
 app.use(orderRoutes);
 
-
+// set up graphql server
 const typeDefs = importSchema("./schema.graphql");
 const schema = makeExecutableSchema({
   typeDefs,
@@ -60,7 +54,6 @@ const schema = makeExecutableSchema({
   },
 });
 const httpServer = createServer(app);
-
 const server = new ApolloServer({
     typeDefs,
     //todo pass context to resolver
