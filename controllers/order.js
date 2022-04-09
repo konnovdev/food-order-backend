@@ -98,16 +98,7 @@ let orderList = [
         ]
     }
 ]
-/**
- * @swagger
- * /api/order:
- *   post:
- *     summary: post order as json type
- *     responses:
- *       'graphql': publish who subcribe order
- *       '200':
- *         description: a list of current order
- */
+
 const postOrder = (req, res)=>{
     console.log("postOrder got ", req.body)
     orderList = [...orderList, req.body]
