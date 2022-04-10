@@ -6,7 +6,7 @@ const router = Router()
 // TODO add the schema in the parameters
 /**
  * @swagger
- * /api/order/:
+ * /order/:
  *   post:
  *     summary: Post an order
  *     parameters: [
@@ -19,17 +19,17 @@ const router = Router()
  *       '200':
  *         description: A successful response
  */
-router.post('/api/order', postOrder)
+router.post('/order', postOrder)
 
 /**
  * @swagger
- * /api/order:
+ * /order:
  *   get:
  *     summary: Get a list of orders
  *     responses:
  *       '200':
  *         description: A successful response
  */
-router.get('/api/order', getAllOrder)
+router.get('/order', getAllOrder)
 
 export default router

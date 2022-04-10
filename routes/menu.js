@@ -5,7 +5,7 @@ const router = Router()
 
 /**
  * @swagger
- * /api/menu/{restaurantId}:
+ * /menu/{restaurantId}:
  *   get:
  *     summary: Get the entire menu of a restaurant by restaurant ID
  *     parameters:
@@ -19,6 +19,6 @@ const router = Router()
  *       '200':
  *         description: A successful response
  */
-router.get('/api/menu/:id', get)
+router.get('/menu/:id', get)
 
 export default router
