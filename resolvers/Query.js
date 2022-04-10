@@ -9,8 +9,9 @@ const Query = {
     queryRestaurants(parent, {}, { db }, info){
         return restaurants
     },
-    queryOrder(parent, {}, {db}, info){
-        let order = getOrderById("order002", orderList)
+    queryOrder(parent, {orderId}, {db}, info){
+        let order = getOrderById(orderId, orderList)
+        console.log(order)
         return order
     }
 }

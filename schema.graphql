@@ -2,7 +2,7 @@ type Query {
     books: [Book]
     queryTest: String!
     queryRestaurants: [Restaurant]
-    queryOrder: Order
+    queryOrder(orderId:String): [Order]
     hello:String
 }
 type Mutation{
