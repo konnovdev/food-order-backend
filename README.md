@@ -2,15 +2,13 @@
 
 ### Stack
 * node-js (with express)
-* mariadb
+* mariadb (soon will be added)
 
 ------------
 ### Running the project on a host machine
 First install the needed dependencies:
 ```
-npm install express
-npm install -D @types/express
-npm install -D nodemon
+npm ci
 ```
 Then use nodemon to run project (it will reload the application when the files change)
 ```
@@ -22,4 +20,4 @@ npm run serve
 ```
 docker-compose up -d
 ```
-You can change the docker container port in docker-compose.yml (the default is set to 4444)
+You can change the docker container port in **docker-compose.yml**, if you want it to be on port **80**, in the ports section write - `"80:80"`
