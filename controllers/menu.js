@@ -2,34 +2,40 @@
 
 let menuResOne = [
     {
-        id: '1',
-        restaurant_id: '1',
-        name: 'beef stack',
-        description: 'medium cooked fresh meat',
-        img_url: 'https://',
-        price: 322.22,
-        currency: 'NTD',
-        available: true,
+        "id": "item001",
+        "name": "beef steak",
+        "price": 80,
+        "img": "https://c8.alamy.com/comp/CY92WM/beef-steak-on-a-wooden-table-CY92WM.jpg",
+        "description": "medium cooked fresh meat",
+        "type": "主食",
+        "tags": [
+            "肉"
+        ],
+        "rates_ave": 4.3
     },
     {
-        id: '2',
-        restaurant_id: '1',
-        name: 'salad',
-        description: 'salad with fresh veggies and fruits',
-        img_url: 'https://',
-        price: 100.22,
-        currency: 'NTD',
-        available: true,
+        "id": "item002",
+        "name": "salad",
+        "price": 100,
+        "img": "https://www.acouplecooks.com/wp-content/uploads/2019/05/Chopped-Salad-001_1.jpg",
+        "description": "salad with fresh veggies and fruits",
+        "type": "飲料",
+        "tags": [
+            "蔬菜"
+        ],
+        "rates_ave": 4.2
     },
     {
-        id: '3',
-        restaurant_id: '1',
-        name: 'milk',
-        description: 'one litre of milk bottle',
-        img_url: 'https://',
-        price: 43,
-        currency: 'NTD',
-        available: true,
+        "id": "item003",
+        "name": "milk",
+        "price": 50,
+        "img": "https://reurl.cc/mGE48Y",
+        "description": "one litre of milk in a bottle",
+        "type": "甜點",
+        "tags": [
+            "無糖",
+        ],
+        "rates_ave": 5.0
     }
 ]
 
