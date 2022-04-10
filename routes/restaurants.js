@@ -5,13 +5,13 @@ const router = Router()
 
 /**
  * @swagger
- * /api/restaurants:
+ * /restaurants:
  *   get:
  *     summary: Get a list of nearby restaurants
  *     responses:
  *       '200':
  *         description: A successful response
  */
-router.get('/api/restaurants', getAll)
+router.get('/restaurants', getAll)
 
 export default router

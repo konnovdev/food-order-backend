@@ -9,7 +9,6 @@ import Mutation from "./resolvers/Mutation.js";
 import Subscription from "./resolvers/Subscription.js";
 import orderRoutes from "./routes/order.js";
 import { ApolloServer } from "apollo-server-express";
-import { PubSub } from 'graphql-subscriptions';
 import { createServer } from 'http';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import {SubscriptionServer} from "subscriptions-transport-ws"
@@ -36,6 +35,7 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 app.use(SWAGGER_URL, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.json());
 app.use(cors())
@@ -43,18 +43,19 @@ app.use(restaurantRoutes);
 app.use(menuRoutes);
 app.use(orderRoutes);
 
-// set up graphql server
-const typeDefs = importSchema("./schema.graphql");
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers: {
-    Query,
-    Mutation,
-    Subscription,
-  },
-});
-const httpServer = createServer(app);
-const server = new ApolloServer({
+const {schema, server} = setUpGraphqlServer();
+
+function setUpGraphqlServer() {
+  const typeDefs = importSchema("./schema.graphql");
+  const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers: {
+      Query,
+      Mutation,
+      Subscription,
+    },
+  });
+  const server = new ApolloServer({
     typeDefs,
     //todo pass context to resolver
     resolvers: {
@@ -62,18 +63,18 @@ const server = new ApolloServer({
       Mutation,
       Subscription,
     },
-});
+  });
+  return {schema, server};
+}
+
+const httpServer = createServer(app);
 await server.start();
 server.applyMiddleware({ app });
 SubscriptionServer.create(
     { schema, execute, subscribe },
     { server: httpServer, path: server.graphqlPath }
   );
+
 httpServer.listen(PORT, () => {
     console.log(`🚀 server has been started on ${PORT}`,);
 });
-
-
-// app.listen(PORT, () => {
-//     console.log(`server has been started on ${PORT}`)
-// })
