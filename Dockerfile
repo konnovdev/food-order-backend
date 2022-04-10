@@ -5,4 +5,4 @@ ENV NODEJS_PORT=80
 VOLUME /app
 WORKDIR /app
 
-CMD yarn install && yarn run start
+CMD yarn install && yarn run serve
