@@ -105,9 +105,7 @@ const postOrder = (req, res)=>{
     pubsub.publish('order', {order:
         orderList
     })
-    res.status(200).send(orderList)
-
-    // res.status(200).list()
+    res.status(200)
 }
 const getAllOrder = (req, res)=>{
     res.status(200).send(orderList)

@@ -19,8 +19,6 @@ const router = Router()
  *       '200':
  *         description: A successful response
  */
-
-
 router.get('/api/menu/:id', get)
 
 export default router
