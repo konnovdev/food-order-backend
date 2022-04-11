@@ -3,6 +3,7 @@ type Query {
     queryTest: String!
     queryRestaurants: [Restaurant]
     queryOrder(orderId:String): [Order]
+    queryOrders: [Order]
     hello:String
 }
 type Mutation{
