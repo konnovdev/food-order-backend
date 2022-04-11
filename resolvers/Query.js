@@ -13,6 +13,9 @@ const Query = {
         let order = getOrderById(orderId, orderList)
         console.log(order)
         return order
+    },
+    queryOrders(parent, {}, {db}, info){
+        return orderList
     }
 }
 

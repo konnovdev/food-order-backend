@@ -5,7 +5,7 @@ let orderList = [
         "id": "order001",
         "tableNo": "15A",
         "totalPrice": 165,
-        "time": "2022/04/04-12:20:05",
+        "time": "2022-04-11T12:20:05",
         "items": [
             {
                 "id": "item001",
@@ -37,7 +37,7 @@ let orderList = [
         "id": "order002",
         "tableNo": "12D",
         "totalPrice": 765,
-        "time": "2022/04/04-13:15:12",
+        "time": "2022-04-11T13:15:12",
         "items": [
             {
                 "id": "item002",
@@ -85,7 +85,7 @@ let orderList = [
         "id": "order003",
         "tableNo": 3,
         "totalPrice": 120,
-        "time": "2022/04/04-14:01:18",
+        "time": "2022-04-11T14:01:18",
         "items": [
             {
                 "id": "item006",
@@ -105,7 +105,7 @@ const postOrder = (req, res)=>{
     pubsub.publish('order', {order:
         orderList
     })
-    res.status(200)
+    res.status(200).send("success")
 }
 const getAllOrder = (req, res)=>{
     res.status(200).send(orderList)
