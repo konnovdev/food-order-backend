@@ -4,7 +4,7 @@ const Subscription = {
     order:{
         subscribe:(parent, {id}, context, info)=>{
             
-            return pubsub.asyncIterator(['order']);
+            return pubsub.asyncIterator([`restaurant{id}`]);
             
         },
 
