@@ -53,7 +53,7 @@ const postOrder = async (req, res)=>{
 }
 const getAllOrder = async (req, res)=>{   
     // refer to graphql part
-    res.status(200).send({orderResult, orderItemResult, itemResult, itemTransResult})
+    res.status(400).send("refer to graphql part")
 }
 const addToOrderList = (element)=>{
     orderList = [...orderList, element]
