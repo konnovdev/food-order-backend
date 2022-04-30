@@ -116,7 +116,7 @@ type OrderItemInfo{
 }
 
 type Comment{ 
-	userID: ID
+	name: String
 	content: String!
 	time: String!
 }

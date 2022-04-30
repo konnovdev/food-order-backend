@@ -22,13 +22,13 @@ const Query = {
         return orderList
     },
     async items(parent, {}, {db}, info){
-        let ItemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
-        let ItemResult = await dbQuery('SELECT * FROM `Item`')
+        let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+        let itemResult = await dbQuery('SELECT * FROM `Item`')
         let result = []
 
         // combine two tables
-        ItemResult.forEach((e1)=>{
-            ItemTransResult.forEach((e2)=>{
+        itemResult.forEach((e1)=>{
+            itemTransResult.forEach((e2)=>{
                 console.log(e1.id, e2.itemId)
               if (e1.id===e2.itemId){
                   result = [...result, {...e1, ...e2}]

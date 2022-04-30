@@ -9,7 +9,14 @@ let menuResOne = [
         "tags": [
             "蛋素"
         ],
-        "rates_ave": 4.5
+        "rates_ave": 4.5,
+        "comments":[
+            {
+                name: "",
+                content: "good to eat",
+                time: "2022-04-11T14:01:18"
+            }
+        ]
     },
     {
         "id": "item002",
@@ -21,7 +28,8 @@ let menuResOne = [
         "tags": [
             "含有甲殼類"
         ],
-        "rates_ave": 4.1
+        "rates_ave": 4.1,
+        "comments": []
     },
     {
         "id": "item003",
@@ -34,7 +42,8 @@ let menuResOne = [
             "含酒",
             "蛋奶素"
         ],
-        "rates_ave": 4.9
+        "rates_ave": 4.9,
+        "comments": []
     },
     {
         "id": "item004",
@@ -44,7 +53,8 @@ let menuResOne = [
         "description": "用料多到超出想像，茶水在多重果味的席捲下繽紛多彩，果肉跳躍舌尖，喝起來完全不會無聊。",
         "type": "飲料",
         "tags": null,
-        "rates_ave": 3.9
+        "rates_ave": 3.9,
+        "comments": []
     },
     {
         "id": "item005",
@@ -56,7 +66,14 @@ let menuResOne = [
         "tags": [
             "含花生"
         ],
-        "rates_ave": 4.2
+        "rates_ave": 4.2,
+        "comments":[
+            {
+                name: "fat man",
+                content: "awesome food",
+                time: "2022-04-11T14:01:18"
+            }
+        ]
     },
     {
         "id": "item006",
@@ -66,7 +83,19 @@ let menuResOne = [
         "description": "熱氣騰騰剛出爐的那種烘烤到剛剛好的外皮，一層厚厚的起司，可以拉出好多絲\n",
         "type": "主食",
         "tags": null,
-        "rates_ave": 4.3
+        "rates_ave": 4.3,
+        "comments":[
+            {
+                name: "evil spirit",
+                content: "DO NOT order this",
+                time: "2022-04-11T14:01:18"
+            },
+            {
+                name: "evil spirit",
+                content: "order this please",
+                time: "2022-04-11T14:01:18"
+            }
+        ]
     },
     {
         "id": "item007",
@@ -76,7 +105,8 @@ let menuResOne = [
         "description": "看似一大圈的柔滑奶油和果凍圍繞著泡芙，湯匙輕觸時即會發現，其實是清脆的馬林糖，薄荷果凍帶涼的甜口感滑嫩",
         "type": "甜點",
         "tags": null,
-        "rates_ave": 4.5
+        "rates_ave": 4.5,
+        "comments": []
     },
     {
         "id": "item008",
@@ -88,7 +118,8 @@ let menuResOne = [
         "tags": [
             "五辛素"
         ],
-        "rates_ave": 4.8
+        "rates_ave": 4.8,
+        "comments": []
     },
     {
         "id": "item009",
@@ -98,7 +129,8 @@ let menuResOne = [
         "description": "外表香脆，內在酥軟，搭配芥末醬真的是絕配",
         "type": "點心",
         "tags": null,
-        "rates_ave": 4.6
+        "rates_ave": 4.6,
+        "comments": []
     },
     {
         "id": "item010",
@@ -108,7 +140,8 @@ let menuResOne = [
         "description": "珍珠飽滿有彈性、嚼勁，唇齒留香，奶茶味道香甜，顏色好看",
         "type": "飲料",
         "tags": null,
-        "rates_ave": 4.6
+        "rates_ave": 4.6,
+        "comments": []
     }
 ]
 
