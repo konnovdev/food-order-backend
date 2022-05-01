@@ -11,8 +11,8 @@ type Query {
 type Mutation{
     createOrder(order:inputOrder): String
     createItem(data: CreateItemInput!): Item! # 新增一道菜，要自動生成 id 給他
-    updateItem(id: ID!, data: UpdateItemInput!): Item! # 更新某道菜的資訊
-    deleteItem(id: ID!): Item! # 刪除某道菜
+    updateItem(id: String!, data: UpdateItemInput!): Item! # 更新某道菜的資訊
+    deleteItem(id: String!): Item! # 刪除某道菜
 }
 type Subscription{
     order(restautantID: ID!): OrderSubscriptionPayload! # 等待新的訂單進來
@@ -58,7 +58,7 @@ input CreateItemInput{
 input UpdateItemInput{
 	name: String!
 	price: Int!
-	image: String
+	img: String
 }
 enum Status{
     RAW

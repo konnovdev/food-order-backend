@@ -39,5 +39,14 @@ const queryAllItem = async()=>{
     return result
 }
 
+const queryItemById = async (id)=>{
+    // todo modify this function to query db directly
+    let allItems = await queryAllItem()
+    // console.log("id", id)
+    let [result] = allItems.filter(item=>item.itemId===id)
+    // console.log(allItems)
+    return result
+}
 export {queryAllItem,
+    queryItemById
 }
