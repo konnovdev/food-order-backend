@@ -1,7 +1,15 @@
+import path from "path";
+import https from "https"
 
+const gettotalprice = (cart) => {
+  let sum = 0;
+  cart.map((obj) => {
+    sum += obj.price * obj.dishesNum;
+  });
+  return sum;
+};
 
 const postPayment = async (req, res) => {
-    console.log("postPayment reached")
     const cart = req.body.cart
   
     let details = ""

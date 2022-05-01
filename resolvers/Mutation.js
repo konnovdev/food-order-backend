@@ -24,11 +24,9 @@ const Mutation = {
         return data
     },
     async updateItem(parent, {id, data}, {}, info){
-        // console.log("id:", id)
-        // console.log("recevied data:", data)
+
         let currentItem = await queryItemById(id)
-        // console.log(currentItem)
-        // return currentItem
+
         try{
             let sql = `UPDATE \`Item\`
             SET \`price\` = '${data.price}', \`img\` = '${data.img}'
