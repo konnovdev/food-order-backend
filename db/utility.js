@@ -1,17 +1,13 @@
 import { dbQuery } from "./connection.js"
-const queryAllItem = async()=>{
-    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
-    let itemResult = await dbQuery('SELECT * FROM `Item`')
-    let commentResult = await dbQuery('SELECT * FROM `Comment`')
-    let itemCommentResult = await dbQuery('SELECT * FROM `Item_Comment`')
-    let result = []
-    let itemList = []
+const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
+    // handle comments
     let itemCommentObj = {}
+    let itemList = []
     itemTransResult.forEach((e)=>{
         itemList = [...itemList, e.itemId]
         itemCommentObj[e.itemId] = []
     })
-    // handel comments
+
     itemCommentResult.forEach((e1)=>{
         commentResult.forEach((comment)=>{
             if (e1.commentId===comment.id){
@@ -24,7 +20,18 @@ const queryAllItem = async()=>{
             }
         })
     })
-    // console.log("itemCommentObj", itemCommentObj)
+    return itemCommentObj
+}
+
+
+const queryAllItem = async()=>{
+    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+    let itemResult = await dbQuery('SELECT * FROM `Item`')
+    let commentResult = await dbQuery('SELECT * FROM `Comment`')
+    let itemCommentResult = await dbQuery('SELECT * FROM `Item_Comment`')
+    let result = []
+
+    let itemCommentObj = handleComment (itemTransResult, itemCommentResult, commentResult)
 
     // combine three tables
     itemResult.forEach((e1)=>{

@@ -11,7 +11,6 @@ import app from "./app.js"
 import {connection} from "./db/connection.js"
 
 const PORT = process.env.NODEJS_PORT ?? 80;
-// connection("localhost", "root", "secure1234", "hw2");
 const {schema, server} = setUpGraphqlServer();
 
 function setUpGraphqlServer() {

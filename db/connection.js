@@ -1,8 +1,10 @@
 import mariadb from "mariadb";
-let host = "localhost"
-let user =  "root"
-let password  = "secure1234"
-let database = "quickOrder"
+import dotenv from 'dotenv'
+dotenv.config()
+let host = process.env.DB_HOST
+let user =  process.env.DB_USER
+let password  = process.env.DB_PASSWORD
+let database = process.env.DB_DATABASE
 
 async function dbQuery(queryString){
   const pool = mariadb.createPool({
@@ -27,7 +29,7 @@ async function dbMutation(queryString){
     });
     let conn = await mariadb.createConnection({host, user, password, database})
     let result = await conn.query(queryString)
-    return "succee"
+    return "success"
   }catch(e){
     console.log(e)
     return  "fail"

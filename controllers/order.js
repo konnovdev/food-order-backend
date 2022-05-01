@@ -16,8 +16,9 @@ const postOrder = async (req, res)=>{
             let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${Order_ItemId}', '${order.id}', '${item.id}', '${order.id}_${item.id}')`)
         })
+        res.status(200).send("success", e)
     }catch(e){
-        res.status(200).send("fail", e)
+        res.status(500).send("fail", e)
     }
     let itemList = []
     order.items.forEach((item)=>{

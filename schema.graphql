@@ -20,8 +20,6 @@ type Subscription{
     hello:[String]
     numberIncremented: Int
 }
-#! why need MutationType
-#! data: [Order]
 type OrderSubscriptionPayload{
     mutation: MutationType!
     data: Order!

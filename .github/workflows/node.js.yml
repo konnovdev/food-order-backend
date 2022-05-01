@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install # making sure both package managers work
       - run: npm install # making sure both package managers work
       - run: npm ci
       - run: npm test
