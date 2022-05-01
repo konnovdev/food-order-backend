@@ -1,114 +1,60 @@
-import {pubsub} from "../resolvers/context.js"
+import { pubsub } from "../resolvers/context.js"
+import { orderList } from "../db/db.js"
+import {dbQuery} from "../db/connection.js"
+import {dbMutation} from "../db/connection.js"
 
-let orderList = [
-    {
-        "id": "order001",
-        "tableNo": "15A",
-        "totalPrice": 165,
-        "time": "2022-04-11T12:20:05",
-        "items": [
-            {
-                "id": "item001",
-                "name": "蛋包飯",
-                "price": 80,
-                "quantity": 1,
-                "note": "飯不要太多",
-                "status": "RAW"
-            },
-            {
-                "id": "item010",
-                "name": "珍珠鮮奶茶",
-                "price": 60,
-                "quantity": 1,
-                "note": null,
-                "status": "RAW"
-            },
-            {
-                "id": "item007",
-                "name": "泡芙",
-                "price": 25,
-                "quantity": 1,
-                "note": null,
-                "status": "RAW"
-            }
-        ]
-    },
-    {
-        "id": "order002",
-        "tableNo": "12D",
-        "totalPrice": 765,
-        "time": "2022-04-11T13:15:12",
-        "items": [
-            {
-                "id": "item002",
-                "name": "義大利麵",
-                "price": 100,
-                "quantity": 4,
-                "note": "兩個青醬兩個紅醬",
-                "status": "RAW"
-            },
-            {
-                "id": "item004",
-                "name": "水果茶",
-                "price": 90,
-                "quantity": 2,
-                "note": null,
-                "status": "RAW"
-            },
-            {
-                "id": "item009",
-                "name": "薯條",
-                "price": 40,
-                "quantity": 2,
-                "note": "要番茄醬",
-                "status": "RAW"
-            },
-            {
-                "id": "item008",
-                "name": "洋蔥圈",
-                "price": 45,
-                "quantity": 1,
-                "note": null,
-                "status": "RAW"
-            },
-            {
-                "id": "item010",
-                "name": "珍珠鮮奶茶",
-                "price": 60,
-                "quantity": 1,
-                "note": null,
-                "status": "RAW"
-            }
-        ]
-    },
-    {
-        "id": "order003",
-        "tableNo": 3,
-        "totalPrice": 120,
-        "time": "2022-04-11T14:01:18",
-        "items": [
-            {
-                "id": "item006",
-                "name": "披薩",
-                "price": 120,
-                "quantity": 1,
-                "note": null,
-                "status": "RAW"
-            }
-        ]
+
+const postOrder = async (req, res)=>{
+    let order = req.body
+    // todo is there a way to make these query a transaction?
+    try{
+        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
+        order.items.forEach(async (item)=>{
+            let Order_Item_InfoId = order.id+"_"+item.id
+            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${item.quantity}', '${item.note}')`)
+    
+            let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
+            await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${Order_ItemId}', '${order.id}', '${item.id}', '${order.id}_${item.id}')`)
+        })
+        res.status(200).send("success", e)
+    }catch(e){
+        res.status(500).send("fail", e)
     }
-]
-
-const postOrder = (req, res)=>{
-    console.log("postOrder got ", req.body)
-    orderList = [...orderList, req.body]
-    pubsub.publish('order', {order:
-        orderList
+    let itemList = []
+    order.items.forEach((item)=>{
+        itemList = [...itemList, {
+            id: item.id,
+            name: item.name,
+            description:"",
+            price: 0,
+            img: "sample http",
+            orderItemInfo:{
+                quantity: item.quantity,
+                note: item.note
+            }
+        }]
+    })
+    let orderPub = {
+        mutation: "CREATED",
+        data:{
+            id: order.id,
+            tableNo: order.tableNo,
+            totalPrice: order.totalPrice,
+            time: order.time,
+            items: itemList
+        }
+    }
+    console.log("orderPub", orderPub)
+    // await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
+    pubsub.publish('order', {
+        order: orderPub
+        
     })
     res.status(200).send("success")
 }
-const getAllOrder = (req, res)=>{
-    res.status(200).send(orderList)
+const getAllOrder = async (req, res)=>{   
+    // refer to graphql part
+    res.status(200).send("refer to graphql part")
 }
 const addToOrderList = (element)=>{
     orderList = [...orderList, element]

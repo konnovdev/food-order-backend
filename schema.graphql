@@ -1,21 +1,75 @@
 type Query {
-    books: [Book]
     queryTest: String!
     queryRestaurants: [Restaurant]
     queryOrder(orderId:String): [Order]
     queryOrders: [Order]
     hello:String
+    items(restaurantID: ID!):[Item!]
+    todayOrders(restaurantID: ID!): [Order!]
+
 }
 type Mutation{
     createOrder(order:inputOrder): String
-    broadcastRandomNumber: Float
+    createItem(data: CreateItemInput!): Item! # 新增一道菜，要自動生成 id 給他
+    updateItem(id: String!, data: UpdateItemInput!): Item! # 更新某道菜的資訊
+    deleteItem(id: String!): Item! # 刪除某道菜
 }
 type Subscription{
-    order(id:String):[Order]
+    order(restautantID: ID!): OrderSubscriptionPayload! # 等待新的訂單進來
     globalCounter: Float
     hello:[String]
     numberIncremented: Int
 }
+type OrderSubscriptionPayload{
+    mutation: MutationType!
+    data: Order!
+}
+
+input UpdateItemInput{
+    name: String
+    price: Int
+    img: String
+    description: String
+    type: String
+    tags: [String]
+    rate_ave: Float
+}
+
+input UpdateStatus{
+	itemID: ID!
+	newStatus: Status!
+}
+type Item{
+	id: ID!
+	name: String!
+	description: String!
+	price: Int!
+	img: String!  # 可以是檔案路徑或網址
+	comments: [Comment!] # 先放著，以後如果要做給餐廳看所有評論的介面可以拿這個資料
+	orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊
+}
+input CreateItemInput{ 
+	name: String!
+	price: Int!
+	img: String
+}
+input UpdateItemInput{
+	name: String!
+	price: Int!
+	img: String
+}
+enum Status{
+    RAW
+    DOING
+    DONE
+}
+
+enum MutationType{
+    CREATED
+    UPDATED
+    DELETED
+}
+
 input inputOrder{
     id: String
     tableNo: String
@@ -32,13 +86,14 @@ input inputItem{
     status: String
 }
 type Order{
-    id: String
-    tableNo: String
-    totalPrice: Int
-    time: String
-    items: [Item]
+	id: ID!
+	restautantID: ID!
+	tableNo: String!
+	items: [Item!]!
+	totalPrice: Int!
+	time: String!
 }
-type Item{
+type orderItem{
     id:String
     name: String
     price: Int
@@ -53,7 +108,13 @@ type Restaurant{
     img_url: String
     description: String
 }
-type Book {
-    title: String
-    author: String
+type OrderItemInfo{
+	quantity: Int! 
+	note: String
+}
+
+type Comment{ 
+	name: String
+	content: String!
+	time: String!
 }

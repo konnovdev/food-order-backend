@@ -1,6 +1,7 @@
 import express from "express";
 import restaurantRoutes from "./routes/restaurants.js";
 import menuRoutes from "./routes/menu.js";
+import paymentRouter from "./routes/payment.js";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import orderRoutes from "./routes/order.js";
@@ -32,5 +33,6 @@ app.use(cors())
 app.use(restaurantRoutes);
 app.use(menuRoutes);
 app.use(orderRoutes);
+app.use(paymentRouter);
 
 export default app
