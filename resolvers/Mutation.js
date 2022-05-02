@@ -48,7 +48,7 @@ const Mutation = {
         try{
             let sql = `UPDATE \`Item_Trans\`
             SET \`name\` = '${data.name}'
-            WHERE \`id\`= '${currentItem.id}'`
+            WHERE \`itemId\`= '${currentItem.id}'`
             await dbMutation(sql)
         }catch(e){
             console.log("fail update name", e)
@@ -59,7 +59,6 @@ const Mutation = {
     async deleteItem(parent, {id}, {}, info){
         let allItem = await queryAllItem()
         let [result] = allItem.filter(e=>e.itemId===id)
-        console.log("allItem", allItem)
         await dbMutation(`DELETE FROM \`Item\` WHERE \`id\`='${id}'`)
         return result
     }
