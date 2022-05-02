@@ -25,10 +25,32 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
 
 
 const queryAllItem = async()=>{
-    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
-    let itemResult = await dbQuery('SELECT * FROM `Item`')
-    let commentResult = await dbQuery('SELECT * FROM `Comment`')
-    let itemCommentResult = await dbQuery('SELECT * FROM `Item_Comment`')
+    let itemTransResult
+    let itemResult
+    let itemCommentResult
+    let commentResult
+
+    try{
+        itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+    }catch(e){
+        console.log("Fail itemTransResult", e)
+    }
+    try{
+        itemResult = await dbQuery('SELECT * FROM `Item`')
+    }catch(e){
+        console.log("Fail itemResult", e)
+    }
+    try{
+        itemCommentResult = await dbQuery('SELECT * FROM `Item_Comment`')
+    }catch(e){
+        console.log("Fail itemCommentResult", e)
+    }
+    try{
+        commentResult = await dbQuery('SELECT * FROM `Comment`')
+    }catch(e){
+        console.log("Fail commentResult", e)
+    }
+    
     let result = []
 
     let itemCommentObj = handleComment (itemTransResult, itemCommentResult, commentResult)
@@ -37,19 +59,18 @@ const queryAllItem = async()=>{
     itemResult.forEach((e1)=>{
         itemTransResult.forEach((e2)=>{
           if (e1.id===e2.itemId){
-              result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId]}]
+              result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
           }
 
         })
     })
-
+    console.log("finish queryAllItem", result)
     return result
 }
 
 const queryItemById = async (id)=>{
     // todo modify this function to query db directly
     let allItems = await queryAllItem()
-    // console.log("id", id)
     let [result] = allItems.filter(item=>item.itemId===id)
     // console.log(allItems)
     return result
