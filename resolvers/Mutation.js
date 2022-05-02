@@ -17,14 +17,14 @@ const Mutation = {
     async createItem(parent, {data}, {}, info){
         console.log("recevied data:", data)
         let itemId = "item"+Math.floor(Math.random()*1000)
+        let sql = `INSERT INTO \`Item\` VALUES('${itemId}', '${data.img}', ${data.price} )`
         try{
-            let sql = `INSERT INTO \`Item\` VALUES('${itemId}', '${data.img}', ${data.price} )`
             let result = await dbMutation(sql)
         }catch(e){
             console.log("Fail sql: ", sql, e)
         }
+        sql = `INSERT INTO \`Item_Trans\` VALUES('${Math.floor(Math.random()*1000)}','zh', '${data.name}' , 'description', 'type', '${itemId}')`
         try{
-            let sql = `INSERT INTO \`Item_Trans\` VALUES('${Math.floor(Math.random()*1000)}','zh', '${data.name}' , 'description', 'type', '${itemId}')`
             let result = await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${Math.floor(Math.random()*1000)}','zh', '${data.name}' , 'description', 'type', '${itemId}')`)
         }catch(e){
             console.log("Fail sql: ", sql, e)
