@@ -1,11 +1,13 @@
 import mariadb from "mariadb";
 import dotenv from 'dotenv'
 dotenv.config()
-let host = process.env.DB_HOST
-let user =  process.env.DB_USER
-let password  = process.env.DB_PASSWORD
-let database = process.env.DB_DATABASE
+
+let host = process.env.MYSQL_HOST
+let user =  process.env.MYSQL_USER
+let password  = process.env.MYSQL_PASSWORD
+let database = process.env.MYSQL_DATABASE
 let connectionCfg = {host, user, password, database}
+
 async function dbQuery(queryString){
   console.log("dbQuery", queryString)
   let conn
