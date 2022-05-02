@@ -2,8 +2,6 @@ import {restaurants} from "../controllers/restaurants.js"
 import {orderList} from "../controllers/order.js"
 import {getOrderById, prepareItem, preapreOrderItem, prepareOrderIdList, prepareOrderList}  from "./utility.js"
 import {dbQuery} from "../db/connection.js"
-import {menuResOne} from "../db/db.js"
-import { parseMessage } from "graphql-ws"
 import {queryAllItem} from "../db/utility.js"
 const Query = {
     queryTest(parent, {}, {}, info){
