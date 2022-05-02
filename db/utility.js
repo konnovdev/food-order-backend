@@ -30,9 +30,6 @@ const queryAllItem = async()=>{
     let itemCommentResult
     let commentResult
 
-    for(let i=0; i<500; i++){
-        itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
-    }
     try{
         itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
     }catch(e){

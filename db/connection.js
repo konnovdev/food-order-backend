@@ -17,7 +17,7 @@ async function dbQuery(queryString){
   try{
     result = await conn.query(queryString)
   }catch (e){
-    console.log("Fail to request an query", e)
+    console.log("Fail to request a query", e)
   }
   conn.end();
   return result.filter(()=>true)
