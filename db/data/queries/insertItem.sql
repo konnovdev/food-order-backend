@@ -1,3 +1,5 @@
+USE `quickOrder`;
+
 DESCRIBE `Item`;
 INSERT INTO `Item` VALUES('item001','https://drive.google.com/uc?id=1_Z_Ggf2NNCw0geL43pkrxZ41Sa9FrV_V', 1);
 INSERT INTO `Item` VALUES('item002','https://drive.google.com/uc?id=16OomzrZRh-is7imuweHt169U-VBzwakJ', 1);

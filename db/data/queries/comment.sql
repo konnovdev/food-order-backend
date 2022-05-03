@@ -1,3 +1,5 @@
+USE `quickOrder`;
+
 DESCRIBE `Comment`;
 
 INSERT INTO `Comment` VALUES('2222', "--anonymous", "好吃", "2022-04-11T14:01:18", 4);

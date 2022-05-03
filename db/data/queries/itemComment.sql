@@ -1,3 +1,5 @@
+USE `quickOrder`;
+
 DESCRIBE `Item_Comment`;
 
 INSERT INTO `Item_Comment` VALUES('1111', "item001", "2222");
