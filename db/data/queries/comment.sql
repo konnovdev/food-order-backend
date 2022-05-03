@@ -14,4 +14,4 @@ INSERT INTO `Comment` VALUES('12', "funny_boy", "order this please", "2022-04-11
 
 
 
-SELECT * FROM `COMMENT`;
+SELECT * FROM `Comment`;
