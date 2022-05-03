@@ -15,7 +15,8 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
                  {name: comment.name,
                     id: comment.id,
                     content: comment.content,
-                    time: comment.time
+                    time: comment.time,
+                    rate:comment.rate
                 }]
             }
         })
@@ -64,7 +65,6 @@ const queryAllItem = async()=>{
 
         })
     })
-    // console.log("finish queryAllItem", result)
     return result
 }
 

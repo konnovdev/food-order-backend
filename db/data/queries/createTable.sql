@@ -12,8 +12,8 @@ CREATE TABLE `Item_Trans`(
 	`id` VARCHAR(20) NOT NULL PRIMARY KEY, 
     
     `lang`  VARCHAR(5) NOT NULL ,
-    `name` VARCHAR(20)NOT NULL ,
-    `description` VARCHAR(100),
+    `name` VARCHAR(40)NOT NULL ,
+    `description` VARCHAR(400),
     `type` VARCHAR(20),
     `itemId` VARCHAR(20)
 );
