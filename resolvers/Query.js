@@ -2,9 +2,7 @@ import {restaurants} from "../controllers/restaurants.js"
 import {orderList} from "../controllers/order.js"
 import {getOrderById, prepareItem, preapreOrderItem, prepareOrderIdList, prepareOrderList}  from "./utility.js"
 import {dbQuery} from "../db/connection.js"
-import {menuResOne} from "../db/db.js"
-import { parseMessage } from "graphql-ws"
-import e from "express"
+import {queryAllItem} from "../db/utility.js"
 const Query = {
     queryTest(parent, {}, {}, info){
         console.log("queryTest")
@@ -22,20 +20,8 @@ const Query = {
         return orderList
     },
     async items(parent, {}, {db}, info){
-        let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
-        let itemResult = await dbQuery('SELECT * FROM `Item`')
-        let result = []
-
-        // combine two tables
-        itemResult.forEach((e1)=>{
-            itemTransResult.forEach((e2)=>{
-                console.log(e1.id, e2.itemId)
-              if (e1.id===e2.itemId){
-                  result = [...result, {...e1, ...e2}]
-              }
-
-            })
-        })
+        let result = await queryAllItem()
+        console.log("result", result)
         return result
     },
     async todayOrders(parent, {}, {db}, info){

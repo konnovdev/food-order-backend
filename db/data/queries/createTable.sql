@@ -1,16 +1,19 @@
+DROP DATABASE `quickOrder`;
+CREATE DATABASE `quickOrder`;
 ALTER DATABASE `quickOrder` COLLATE = `utf8_general_ci`;
 USE `quickOrder`;
 CREATE TABLE `Item` (
     `id` VARCHAR(20) NOT NULL PRIMARY KEY,
-    `img` VARCHAR(150),
+    `img` VARCHAR(100),
     `price` int
     
 );
 CREATE TABLE `Item_Trans`(
 	`id` VARCHAR(20) NOT NULL PRIMARY KEY, 
+    
     `lang`  VARCHAR(5) NOT NULL ,
-    `name` VARCHAR(40)NOT NULL ,
-    `description` VARCHAR(400),
+    `name` VARCHAR(20)NOT NULL ,
+    `description` VARCHAR(100),
     `type` VARCHAR(20),
     `itemId` VARCHAR(20)
 );
@@ -30,14 +33,15 @@ CREATE TABLE `Order_Item`(
 CREATE TABLE `Order_Item_Info`(
 	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
     `quantity` INT,
-    `Note` VARCHAR(100)
+    `Note` VARCHAR(50)
 );
 
 CREATE TABLE `Comment`(
 	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
-    `name` VARCHAR(30),
-    `content`  VARCHAR(200),
-    `time` VARCHAR(50)
+    `name` VARCHAR(20),
+    `content`  VARCHAR(100),
+    `time` VARCHAR(50),
+    `rate` Int
 );
 CREATE TABLE `Item_Comment`(
 	`id` VARCHAR(20) NOT NULL PRIMARY KEY,

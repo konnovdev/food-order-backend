@@ -1,5 +1,4 @@
 USE `quickOrder`;
-
 DESCRIBE `Order_Item`;
 
 INSERT INTO `Order_Item` VALUES('Order_Item1', 'order001','item001', 'order001_item001');

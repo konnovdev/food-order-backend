@@ -9,6 +9,7 @@ let database = process.env.MYSQL_DATABASE
 let connectionCfg = {host, user, password, database}
 
 async function dbQuery(queryString){
+  console.log("dbQuery", queryString)
   let conn
   try{
     conn = await mariadb.createConnection(connectionCfg)
@@ -27,16 +28,19 @@ async function dbQuery(queryString){
 
 async function dbMutation(queryString){
   console.log("dbMutation", queryString)
+  let conn
   try{
-    let conn = await mariadb.createConnection(connectionCfg)
+    conn = await mariadb.createConnection(connectionCfg)
     await conn.query(queryString)
 
-    return "success"
+    
   }catch(e){
     console.log(e)
     return  "fail"
   }
+  
   conn.end();
+  return "success"
 }
 
 async function connection(host, user, password, database) {

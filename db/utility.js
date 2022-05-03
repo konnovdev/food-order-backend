@@ -64,7 +64,7 @@ const queryAllItem = async()=>{
 
         })
     })
-    console.log("finish queryAllItem", result)
+    // console.log("finish queryAllItem", result)
     return result
 }
 
