@@ -2,21 +2,13 @@ import { pubsub } from "../resolvers/context.js"
 import { orderList } from "../db/db.js"
 import {dbQuery} from "../db/connection.js"
 import {dbMutation} from "../db/connection.js"
-
+import { createOrder } from "../db/utility.js"
 
 const postOrder = async (req, res)=>{
     let order = req.body
-    // todo is there a way to make these query a transaction?
+    console.log("order", order)
     try{
-        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
-        order.items.forEach(async (item)=>{
-            let Order_Item_InfoId = order.id+"_"+item.id
-            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${item.quantity}', '${item.note}')`)
-    
-            let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
-            await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${Order_ItemId}', '${order.id}', '${item.id}', '${order.id}_${item.id}')`)
-        })
-        res.status(200).send("success", e)
+        createOrder(order)
     }catch(e){
         res.status(500).send("fail", e)
     }

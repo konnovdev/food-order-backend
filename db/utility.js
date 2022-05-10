@@ -1,4 +1,4 @@
-import { dbQuery } from "./connection.js"
+import { dbQuery, dbMutation } from "./connection.js"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -7,7 +7,7 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
         itemList = [...itemList, e.itemId]
         itemCommentObj[e.itemId] = []
     })
-
+    console.log("itemCommentResult", itemCommentResult)
     itemCommentResult.forEach((e1)=>{
         commentResult.forEach((comment)=>{
             if (e1.commentId===comment.id){
@@ -21,6 +21,7 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
             }
         })
     })
+    // console.log("itemCommentObj", itemCommentObj)
     return itemCommentObj
 }
 
@@ -75,6 +76,26 @@ const queryItemById = async (id)=>{
     // console.log(allItems)
     return result
 }
+
+const createOrder = async (order)=>{
+    // todo is there a way to make these query a transaction?
+    try{
+        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
+        order.items.forEach(async (item)=>{
+            let Order_Item_InfoId = order.id+"_"+item.id
+            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}')`)
+    
+            // let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
+            await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
+        })
+        
+    }catch(e){
+        console.log(e)
+    }
+}
+
+
 export {queryAllItem,
-    queryItemById
+    queryItemById,
+    createOrder
 }

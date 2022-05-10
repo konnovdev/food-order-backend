@@ -2,15 +2,16 @@ import {pubsub} from "./context.js"
 import { orderList, addToOrderList } from "../controllers/order.js"
 import {dbMutation, dbQuery} from "../db/connection.js"
 import {queryAllItem, queryItemById} from "../db/utility.js"
-
+import { createOrder as createOrderDb } from "../db/utility.js"
 // ! passing context from Appolo server constructor is not working
 const Mutation = {
     createOrder(parent, {order}, {}, info){
         let tmp = JSON.parse(JSON.stringify(order))
-        addToOrderList(tmp) // fix [Object: null prototype] bug
+        // addToOrderList(tmp) // fix [Object: null prototype] bug
         console.log("received new order", order)
+        createOrderDb(order)
         pubsub.publish('order', {order:
-            orderList
+            order
         })
         return "success"
     },
