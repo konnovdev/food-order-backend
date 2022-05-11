@@ -88,7 +88,6 @@ const createOrder = async (order)=>{
             // let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
         })
-        
     }catch(e){
         console.log(e)
     }

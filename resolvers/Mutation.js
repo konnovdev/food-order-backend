@@ -5,13 +5,34 @@ import {queryAllItem, queryItemById} from "../db/utility.js"
 import { createOrder as createOrderDb } from "../db/utility.js"
 // ! passing context from Appolo server constructor is not working
 const Mutation = {
-    createOrder(parent, {order}, {}, info){
+    async createOrder(parent, {order}, {}, info){
         let tmp = JSON.parse(JSON.stringify(order))
         // addToOrderList(tmp) // fix [Object: null prototype] bug
         console.log("received new order", order)
-        createOrderDb(order)
-        pubsub.publish('order', {order:
-            order
+        await createOrderDb(order)
+        let publishData = {
+            id: order.id,
+            tableNo: order.tableNo,
+            totalPrice: order.totalPrice,
+            time: order.time,
+            items: order.items.map((item)=>{
+                return{
+                    id: item.id,
+                    name: item.name,
+                    quantity: item.quantity,
+                    orderItemInfo:{
+                        quantity: item.quantity,
+                        note: item.note
+                    }
+                }
+            })
+
+        }
+        pubsub.publish('order', {
+            order:{
+                mutation: "CREATED",
+                data: publishData
+            }
         })
         return "success"
     },

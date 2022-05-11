@@ -1,12 +1,7 @@
 type Query {
     queryTest: String!
-    queryRestaurants: [Restaurant]
-    queryOrder(orderId:String): [Order]
-    queryOrders: [Order]
-    hello:String
     items(restaurantID: ID!):[Item!]
     todayOrders(restaurantID: ID!): [Order!]
-
 }
 type Mutation{
     createOrder(order:inputOrder): String
@@ -15,16 +10,25 @@ type Mutation{
     deleteItem(id: String!): Item! # 刪除某道菜
 }
 type Subscription{
-    order(restautantID: ID!): OrderSubscriptionPayload! # 等待新的訂單進來
-    globalCounter: Float
-    hello:[String]
-    numberIncremented: Int
-}
-type OrderSubscriptionPayload{
-    mutation: MutationType!
-    data: Order!
+    order(restaurantId: String!): OrderSubscriptionPayload! # 等待新的訂單進來
 }
 
+type OrderSubscriptionPayload{
+    mutation: MutationType!
+    data: OrderKitchen!
+}
+type OrderKitchen{
+    id: String!
+    tableNo: String!
+    totalPrice: Int!
+    time: String!
+    items: [ItemKitchen!]
+}
+type ItemKitchen{
+    id: String!
+    name: String!
+    orderItemInfo: OrderItemInfo!
+}
 input UpdateItemInput{
     name: String
     price: Int

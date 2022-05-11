@@ -8,17 +8,8 @@ const Query = {
         console.log("queryTest")
         return "TEST"
     },
-    queryRestaurants(parent, {}, { db }, info){
-        return restaurants
-    },
-    queryOrder(parent, {orderId}, {db}, info){
-        let order = getOrderById(orderId, orderList)
-        console.log(order)
-        return order
-    },
-    queryOrders(parent, {}, {db}, info){
-        return orderList
-    },
+
+
     async items(parent, {}, {db}, info){
         let result = await queryAllItem()
         console.log("result", result)
