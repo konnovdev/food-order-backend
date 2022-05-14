@@ -1,4 +1,4 @@
-ALTER DATABASE `quickOrder` COLLATE = `utf8_general_ci`;
+ALTER DATABASE `quickOrder` COLLATE = `utf8mb4_unicode_ci`;
 USE `quickOrder`;
 CREATE TABLE `Item` (
     `id` VARCHAR(20) NOT NULL PRIMARY KEY,
