@@ -13,12 +13,21 @@ export default Subscription
 
 // for frontend test gql string
 // subscription order{
-//     order(id:"order001"){
+// order(restaurantId:"restaurantId"){
+//     data{
 //       id
 //       tableNo
-//       items {
+//       totalPrice
+//       time
+//       items{
+//         id
 //         name
-//         quantity
+//         orderItemInfo {
+//           quantity
+//           note
+//         }
 //       }
+
 //     }
+//   }
 //   }

@@ -10,7 +10,7 @@ type Mutation{
     deleteItem(id: String!): Item! # 刪除某道菜
 }
 type Subscription{
-    order(restaurantId: String!): OrderSubscriptionPayload! # 等待新的訂單進來
+    order(restaurantId: String!): [Order!] # 等待新的訂單進來
 }
 
 type OrderSubscriptionPayload{
@@ -22,7 +22,7 @@ type OrderKitchen{
     tableNo: String!
     totalPrice: Int!
     time: String!
-    items: [ItemKitchen!]
+    items: [Item!]
 }
 type ItemKitchen{
     id: String!
@@ -91,7 +91,6 @@ input inputItem{
 }
 type Order{
 	id: ID!
-	restautantID: ID!
 	tableNo: String!
 	items: [Item!]!
 	totalPrice: Int!

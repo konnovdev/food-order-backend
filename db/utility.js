@@ -12,7 +12,7 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
         commentResult.forEach((comment)=>{
             if (e1.commentId===comment.id){
                 itemCommentObj[e1.itemId] = [...itemCommentObj[e1.itemId],
-                 {name: comment.name,
+                {name: comment.name,
                     id: comment.id,
                     content: comment.content,
                     time: comment.time,
@@ -60,9 +60,9 @@ const queryAllItem = async()=>{
     // combine three tables
     itemResult.forEach((e1)=>{
         itemTransResult.forEach((e2)=>{
-          if (e1.id===e2.itemId){
-              result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
-          }
+            if (e1.id===e2.itemId){
+                result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
+            }
 
         })
     })
@@ -93,8 +93,90 @@ const createOrder = async (order)=>{
     }
 }
 
+const prepareOrderIdList = (orderResult)=>{
+    // to create a list of all orderId
+    let orderIdList = []
+        orderResult.forEach((order)=>{
+            if (!orderIdList.includes(order.id))
+                orderIdList = [...orderIdList, order.id]
+    })
+    return orderIdList
+}
+const prepareItem = (itemTransResult, itemResult) =>{
+    // prepare orderItemObj: itemId as a key
+    let itemObj = {}
+    itemTransResult.forEach((item)=>{
+        itemResult.forEach((e)=>{
+            if (item.itemId===e.id){
+                itemObj[item.itemId] = {...item, ...e}
+            }
+        })
+    })
+    return itemObj
+}
+const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
+    // prepare orderItemObj: order.id as a key, content of order as a value
+    let orderItemObj = {}
+    orderIdList.forEach((e)=>{
+        orderItemObj[e] = {"items":[]}
+    })
+    console.log("orderItemObj", orderItemObj)
+    // put items into orderItemObj
+    orderItemInfoResult.forEach((e1)=>{
+        let orderId = e1.orderId
+        let itemId = e1.itemId
+        console.log("handle ", orderId, itemId)
+        orderItemObj[orderId]["items"] = [...orderItemObj[orderId]["items"], {
+            "id": itemId,
+            "orderItemInfo":{
+                "quantity": e1.quantity,
+                "note": e1.note,
+            },
+            ...itemObj[itemId]
+        }]
+    })
+    console.log("orderItemObj", orderItemObj)
+    return orderItemObj
+}
+const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
+    // prepare orderList by combine orderItemObj and orderResult
+    let orderList = []
+    orderIdList.forEach((orderId)=>{
+        orderResult.forEach((e2, index)=>{
+            if (orderId===e2.id){
+                orderList = [...orderList, {...orderResult[index], "items":orderItemObj[orderId]["items"]}]
+            }
+        })
+    })
+    return orderList
+}
+const queryAllOrder = async ()=>{
+    let orderResult = await dbQuery('SELECT * FROM `Order`')
+    let orderItemResult = await dbQuery('SELECT `orderId`, `itemId`, `orderItemInfoId` FROM `Order_Item`')
+    let orderItemInfoResult = await dbQuery('SELECT * FROM `Order_Item_Info`')
+    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+    let itemResult = await dbQuery('SELECT * FROM `Item`')
+    // to create a list of all orderId
+    let orderIdList = prepareOrderIdList(orderResult)
+    console.log("orderIdList", orderIdList)
+    // console.log("orderIdList", orderIdList)
+    // prepare orderItemObj: itemId as a key
+    let itemObj = prepareItem(itemTransResult, itemResult)
+    // console.log("itemObj", itemObj)
+    // prepare orderItemObj: order.id as a key, content of order as a value
+    let orderItemObj = preapreOrderItem(orderIdList, orderItemInfoResult, itemObj)
+    // console.log("orderItemInfoResult", orderItemInfoResult)
+    // console.log("orderItemObj", orderItemObj)
+    console.log("orderItemObj[order001]", orderItemObj["order001"])
+    // prepare orderList by combine orderItemObj and orderResult
+    let orderList = prepareOrderList(orderIdList, orderResult, orderItemObj)
+    console.log("orderList")
+    return orderList
+}
+
 
 export {queryAllItem,
     queryItemById,
-    createOrder
+    createOrder,
+    queryAllOrder
 }
