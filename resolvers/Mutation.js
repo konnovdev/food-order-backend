@@ -7,7 +7,6 @@ import { createOrder as createOrderDb } from "../db/utility.js"
 const Mutation = {
     async createOrder(parent, {order}, {}, info){
         let tmp = JSON.parse(JSON.stringify(order))
-        // addToOrderList(tmp) // fix [Object: null prototype] bug
         console.log("received new order", order)
         await createOrderDb(order)
         let publishData = {
