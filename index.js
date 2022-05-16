@@ -8,7 +8,7 @@ import {makeExecutableSchema} from '@graphql-tools/schema';
 import {SubscriptionServer} from "subscriptions-transport-ws"
 import {execute, subscribe} from "graphql"
 import app from "./app.js"
-import {connection} from "./db/connection.js"
+import  {GraphQLUpload} from 'graphql-upload';
 
 const PORT = process.env.NODEJS_PORT ?? 80;
 const {schema, server} = setUpGraphqlServer();
@@ -18,6 +18,7 @@ function setUpGraphqlServer() {
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers: {
+            Upload: GraphQLUpload,
             Query,
             Mutation,
             Subscription,
@@ -37,6 +38,8 @@ function setUpGraphqlServer() {
 
 const httpServer = createServer(app);
 await server.start();
+
+
 server.applyMiddleware({app});
 SubscriptionServer.create(
     {schema, execute, subscribe},
