@@ -6,6 +6,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import orderRoutes from "./routes/order.js";
 import cors from "cors"
+import {graphqlUploadExpress} from 'graphql-upload';
 
 const SWAGGER_URL = "/docs";
 
@@ -34,5 +35,10 @@ app.use(restaurantRoutes);
 app.use(menuRoutes);
 app.use(orderRoutes);
 app.use(paymentRouter);
-
+ // This middleware should be added before calling `applyMiddleware`.
+app.use(graphqlUploadExpress());
+app.use(express.static("public"))
+// app.listen({port:80}, ()=>{
+//     console.log("app listen")
+// })
 export default app

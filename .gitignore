@@ -4,3 +4,4 @@ yarn-error.log
 .env
 /db/data/*
 !/db/data/queries
+/public

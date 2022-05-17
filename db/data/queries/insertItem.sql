@@ -1,16 +1,16 @@
 USE `quickOrder`;
 
 DESCRIBE `Item`;
-INSERT INTO `Item` VALUES('item001','https://drive.google.com/uc?id=1_Z_Ggf2NNCw0geL43pkrxZ41Sa9FrV_V', 1);
-INSERT INTO `Item` VALUES('item002','https://drive.google.com/uc?id=16OomzrZRh-is7imuweHt169U-VBzwakJ', 1);
-INSERT INTO `Item` VALUES('item003','https://drive.google.com/uc?id=1hSTdxXTqG-s3PgM7W2Kxmkg_x6neNmWU', 1);
-INSERT INTO `Item` VALUES('item004','https://drive.google.com/uc?id=1Wc25wxVBmCcAxB_NOJe7CXllL68OHmv_', 1);
-INSERT INTO `Item` VALUES('item005','https://drive.google.com/uc?id=1Ygem5GwtZWUwEDrxM0jKg6gIP3bM8CVo', 1);
-INSERT INTO `Item` VALUES('item006','https://drive.google.com/uc?id=15DN9XmlNwkUQiQ7bUkE66yOarDr0mpyi', 1);
-INSERT INTO `Item` VALUES('item007','https://drive.google.com/uc?id=1LjkyrD-7NvJZ0z6EUcecnGjlzuRrV2_r', 1);
-INSERT INTO `Item` VALUES('item008','https://drive.google.com/uc?id=1E5q8fPRgunEw_wghPC19KcfOAcN2DBa9', 1);
-INSERT INTO `Item` VALUES('item009','https://drive.google.com/uc?id=1zGLO_nj2jPPKRDZNtRh6JUhGCMrzJunD', 1);
-INSERT INTO `Item` VALUES('item010','https://drive.google.com/uc?id=16WQoWCoY4jbYRiprbxci3InhJSUdaGUv', 1);
+INSERT INTO `Item` VALUES('item001','item001.jpeg', 1);
+INSERT INTO `Item` VALUES('item002','item002.jpeg', 1);
+INSERT INTO `Item` VALUES('item003','item003.jpeg', 1);
+INSERT INTO `Item` VALUES('item004','item004.jpeg', 1);
+INSERT INTO `Item` VALUES('item005','item005.jpeg', 1);
+INSERT INTO `Item` VALUES('item006','item006.jpeg', 1);
+INSERT INTO `Item` VALUES('item007','item007.jpeg', 1);
+INSERT INTO `Item` VALUES('item008','item008.jpeg', 1);
+INSERT INTO `Item` VALUES('item009','item009.jpeg', 1);
+INSERT INTO `Item` VALUES('item010','item010.jpeg', 1);
 select * from `Item`;
 
 

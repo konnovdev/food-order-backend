@@ -16,20 +16,22 @@ CREATE TABLE `Item_Trans`(
     `itemId` VARCHAR(20)
 );
 CREATE TABLE `Order`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `tableNo` VARCHAR(20) NOT NULL ,
     `totalPrice` INT,
     `time` VARCHAR(50)
 );
 CREATE TABLE `Order_Item`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
-    `orderId` VARCHAR(20),
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `orderId` VARCHAR(50),
     `itemId` VARCHAR(20),
-    `orderItemInfoId` VARCHAR(20)
+    `orderItemInfoId` VARCHAR(50)
 );
 
 CREATE TABLE `Order_Item_Info`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `orderId` VARCHAR(50),
+    `itemId` VARCHAR(50),
     `quantity` INT,
     `Note` VARCHAR(50)
 );
@@ -80,6 +82,15 @@ ADD FOREIGN KEY (`commentId`)
 REFERENCES `Comment`(`id`)
 ON DELETE SET NULL;
 
+ALTER TABLE `Order_Item_Info`
+ADD FOREIGN KEY (`orderId`)
+REFERENCES `Order`(`id`)
+ON DELETE SET NULL;
+
+ALTER TABLE `Order_Item_Info`
+ADD FOREIGN KEY (`itemId`)
+REFERENCES `Item`(`id`)
+ON DELETE SET NULL;
 show tables;
 
 

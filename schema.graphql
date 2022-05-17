@@ -5,9 +5,10 @@ type Query {
 }
 type Mutation{
     createOrder(order:inputOrder): String
-    createItem(data: CreateItemInput!): Item! # 新增一道菜，要自動生成 id 給他
-    updateItem(id: String!, data: UpdateItemInput!): Item! # 更新某道菜的資訊
+    createItem(data: CreateItemInput!, file: Upload): Item! # 新增一道菜，要自動生成 id 給他
+    updateItem(id: String!, data: UpdateItemInput!, file: Upload): Item! # 更新某道菜的資訊
     deleteItem(id: String!): Item! # 刪除某道菜
+    singleUpload(file: Upload!): File!
 }
 type Subscription{
     order(restaurantId: String!): [Order!] # 等待新的訂單進來
@@ -120,4 +121,8 @@ type Comment{
 	name: String
 	content: String!
 	time: String!
+}
+scalar Upload
+type File{
+    url:String!
 }

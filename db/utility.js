@@ -1,4 +1,5 @@
 import { dbQuery, dbMutation } from "./connection.js"
+import path from "path"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -7,7 +8,7 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
         itemList = [...itemList, e.itemId]
         itemCommentObj[e.itemId] = []
     })
-    console.log("itemCommentResult", itemCommentResult)
+    // console.log("itemCommentResult", itemCommentResult)
     itemCommentResult.forEach((e1)=>{
         commentResult.forEach((comment)=>{
             if (e1.commentId===comment.id){
@@ -24,7 +25,12 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // console.log("itemCommentObj", itemCommentObj)
     return itemCommentObj
 }
-
+const makeImgUrl = (imgFromDb)=>{
+    // todo is there a way to get current backend url?
+    let urlBase = "https://49e6-150-117-240-26.ngrok.io"
+    let imgUrl  = path.join(urlBase, "images", imgFromDb) 
+    return imgUrl
+}
 
 const queryAllItem = async()=>{
     let itemTransResult
@@ -56,16 +62,22 @@ const queryAllItem = async()=>{
     let result = []
 
     let itemCommentObj = handleComment (itemTransResult, itemCommentResult, commentResult)
-
     // combine three tables
     itemResult.forEach((e1)=>{
+
         itemTransResult.forEach((e2)=>{
             if (e1.id===e2.itemId){
-                result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
+                result = [...result, {...e1,
+                    ...e2,
+                    comments:itemCommentObj[e2.itemId],
+                    id:e2.itemId,
+                    img: makeImgUrl(e1.img)
+                }]
             }
 
         })
     })
+    // console.log("result", result)
     return result
 }
 
@@ -125,7 +137,6 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
     orderItemInfoResult.forEach((e1)=>{
         let orderId = e1.orderId
         let itemId = e1.itemId
-        console.log("handle ", orderId, itemId)
         orderItemObj[orderId]["items"] = [...orderItemObj[orderId]["items"], {
             "id": itemId,
             "orderItemInfo":{
@@ -135,7 +146,6 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
             ...itemObj[itemId]
         }]
     })
-    console.log("orderItemObj", orderItemObj)
     return orderItemObj
 }
 const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
