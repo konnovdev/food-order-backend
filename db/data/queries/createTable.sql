@@ -1,19 +1,19 @@
 ALTER DATABASE `quickOrder` COLLATE = `utf8mb4_unicode_ci`;
 USE `quickOrder`;
 CREATE TABLE `Item` (
-    `id` VARCHAR(20) NOT NULL PRIMARY KEY,
-    `img` VARCHAR(100),
+    `id` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `img` VARCHAR(150),
     `price` int
     
 );
 CREATE TABLE `Item_Trans`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY, 
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
     
     `lang`  VARCHAR(5) NOT NULL ,
-    `name` VARCHAR(40)NOT NULL ,
+    `name` VARCHAR(50)NOT NULL ,
     `description` VARCHAR(400),
     `type` VARCHAR(20),
-    `itemId` VARCHAR(20)
+    `itemId` VARCHAR(50)
 );
 CREATE TABLE `Order`(
 	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -24,7 +24,7 @@ CREATE TABLE `Order`(
 CREATE TABLE `Order_Item`(
 	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `orderId` VARCHAR(50),
-    `itemId` VARCHAR(20),
+    `itemId` VARCHAR(50),
     `orderItemInfoId` VARCHAR(50)
 );
 
@@ -33,20 +33,20 @@ CREATE TABLE `Order_Item_Info`(
     `orderId` VARCHAR(50),
     `itemId` VARCHAR(50),
     `quantity` INT,
-    `Note` VARCHAR(50)
+    `Note` VARCHAR(120)
 );
 
 CREATE TABLE `Comment`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
-    `name` VARCHAR(20),
-    `content`  VARCHAR(100),
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `name` VARCHAR(50),
+    `content`  VARCHAR(300),
     `time` VARCHAR(50),
     `rate` Int
 );
 CREATE TABLE `Item_Comment`(
-	`id` VARCHAR(20) NOT NULL PRIMARY KEY,
-	`itemId` VARCHAR(20),
-    `commentId` VARCHAR(20)
+	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
+	`itemId` VARCHAR(50),
+    `commentId` VARCHAR(50)
 );
 
 
