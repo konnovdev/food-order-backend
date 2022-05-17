@@ -13,19 +13,6 @@ const postOrder = async (req, res)=>{
         res.status(500).send("fail", e)
     }
     let itemList = []
-    // order.items.forEach((item)=>{
-    //     itemList = [...itemList, {
-    //         id: item.id,
-    //         name: item.name,
-    //         description:"",
-    //         price: 0,
-    //         img: "sample http",
-    //         orderItemInfo:{
-    //             quantity: item.quantity,
-    //             note: item.note
-    //         }
-    //     }]
-    // })
     let orderPub = await queryAllOrder()
     console.log("orderPub", orderPub)
     // await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
