@@ -22,6 +22,9 @@ If you're running docker it's done like this:
 * `mysql -h localhost -u someuser -p < comment.sql`
 * `mysql -h localhost -u someuser -p < itemComment.sql`
 
+Also make sure your database is running with utf8mb4 encoding, otherwise Chinese will not render, an SQL command to check the encoding is:
+```show variables like 'char%'; show variables like 'collation%';```
+The encoding for the docker container of the database is set up in **db/Dockerfile** file
 ------------
 ### Running the project on a host machine
 First install the needed dependencies:
