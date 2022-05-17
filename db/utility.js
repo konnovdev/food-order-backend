@@ -1,4 +1,4 @@
-import { dbQuery } from "./connection.js"
+import { dbQuery, dbMutation } from "./connection.js"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -7,12 +7,12 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
         itemList = [...itemList, e.itemId]
         itemCommentObj[e.itemId] = []
     })
-
+    console.log("itemCommentResult", itemCommentResult)
     itemCommentResult.forEach((e1)=>{
         commentResult.forEach((comment)=>{
             if (e1.commentId===comment.id){
                 itemCommentObj[e1.itemId] = [...itemCommentObj[e1.itemId],
-                 {name: comment.name,
+                {name: comment.name,
                     id: comment.id,
                     content: comment.content,
                     time: comment.time,
@@ -21,6 +21,7 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
             }
         })
     })
+    // console.log("itemCommentObj", itemCommentObj)
     return itemCommentObj
 }
 
@@ -59,9 +60,9 @@ const queryAllItem = async()=>{
     // combine three tables
     itemResult.forEach((e1)=>{
         itemTransResult.forEach((e2)=>{
-          if (e1.id===e2.itemId){
-              result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
-          }
+            if (e1.id===e2.itemId){
+                result = [...result, {...e1, ...e2, comments:itemCommentObj[e2.itemId], id:e2.itemId}]
+            }
 
         })
     })
@@ -75,6 +76,107 @@ const queryItemById = async (id)=>{
     // console.log(allItems)
     return result
 }
+
+const createOrder = async (order)=>{
+    // todo is there a way to make these query a transaction?
+    try{
+        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
+        order.items.forEach(async (item)=>{
+            let Order_Item_InfoId = order.id+"_"+item.id
+            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}')`)
+    
+            // let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
+            await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
+        })
+    }catch(e){
+        console.log(e)
+    }
+}
+
+const prepareOrderIdList = (orderResult)=>{
+    // to create a list of all orderId
+    let orderIdList = []
+        orderResult.forEach((order)=>{
+            if (!orderIdList.includes(order.id))
+                orderIdList = [...orderIdList, order.id]
+    })
+    return orderIdList
+}
+const prepareItem = (itemTransResult, itemResult) =>{
+    // prepare orderItemObj: itemId as a key
+    let itemObj = {}
+    itemTransResult.forEach((item)=>{
+        itemResult.forEach((e)=>{
+            if (item.itemId===e.id){
+                itemObj[item.itemId] = {...item, ...e}
+            }
+        })
+    })
+    return itemObj
+}
+const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
+    // prepare orderItemObj: order.id as a key, content of order as a value
+    let orderItemObj = {}
+    orderIdList.forEach((e)=>{
+        orderItemObj[e] = {"items":[]}
+    })
+    console.log("orderItemObj", orderItemObj)
+    // put items into orderItemObj
+    orderItemInfoResult.forEach((e1)=>{
+        let orderId = e1.orderId
+        let itemId = e1.itemId
+        console.log("handle ", orderId, itemId)
+        orderItemObj[orderId]["items"] = [...orderItemObj[orderId]["items"], {
+            "id": itemId,
+            "orderItemInfo":{
+                "quantity": e1.quantity,
+                "note": e1.note,
+            },
+            ...itemObj[itemId]
+        }]
+    })
+    console.log("orderItemObj", orderItemObj)
+    return orderItemObj
+}
+const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
+    // prepare orderList by combine orderItemObj and orderResult
+    let orderList = []
+    orderIdList.forEach((orderId)=>{
+        orderResult.forEach((e2, index)=>{
+            if (orderId===e2.id){
+                orderList = [...orderList, {...orderResult[index], "items":orderItemObj[orderId]["items"]}]
+            }
+        })
+    })
+    return orderList
+}
+const queryAllOrder = async ()=>{
+    let orderResult = await dbQuery('SELECT * FROM `Order`')
+    let orderItemResult = await dbQuery('SELECT `orderId`, `itemId`, `orderItemInfoId` FROM `Order_Item`')
+    let orderItemInfoResult = await dbQuery('SELECT * FROM `Order_Item_Info`')
+    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+    let itemResult = await dbQuery('SELECT * FROM `Item`')
+    // to create a list of all orderId
+    let orderIdList = prepareOrderIdList(orderResult)
+    console.log("orderIdList", orderIdList)
+    // console.log("orderIdList", orderIdList)
+    // prepare orderItemObj: itemId as a key
+    let itemObj = prepareItem(itemTransResult, itemResult)
+    // console.log("itemObj", itemObj)
+    // prepare orderItemObj: order.id as a key, content of order as a value
+    let orderItemObj = preapreOrderItem(orderIdList, orderItemInfoResult, itemObj)
+    // console.log("orderItemInfoResult", orderItemInfoResult)
+    // console.log("orderItemObj", orderItemObj)
+    console.log("orderItemObj[order001]", orderItemObj["order001"])
+    // prepare orderList by combine orderItemObj and orderResult
+    let orderList = prepareOrderList(orderIdList, orderResult, orderItemObj)
+    console.log("orderList")
+    return orderList
+}
+
+
 export {queryAllItem,
-    queryItemById
+    queryItemById,
+    createOrder,
+    queryAllOrder
 }

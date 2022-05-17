@@ -24,7 +24,9 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
     })
     // put items into orderItemObj
     orderItemInfoResult.forEach((e1)=>{
-        let [orderId, itemId] = e1.id.split("_")
+        let orderId = e1.orderId
+        let itemId = e1.itemId
+
         orderItemObj[orderId]["items"] = [...orderItemObj[orderId]["items"], {
             "id": itemId,
             "quantity": e1.quantity,
@@ -32,6 +34,7 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
             ...itemObj[itemId]
         }]
     })
+
     return orderItemObj
 }
 const prepareOrderIdList = (orderItemResult)=>{
