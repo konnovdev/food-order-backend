@@ -41,7 +41,8 @@ CREATE TABLE `Comment`(
     `name` VARCHAR(50),
     `content`  VARCHAR(300),
     `time` VARCHAR(50),
-    `rate` Int
+    `rate` Int,
+    `imgUrl` VARCHAR(100)
 );
 CREATE TABLE `Item_Comment`(
 	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -91,6 +92,7 @@ ALTER TABLE `Order_Item_Info`
 ADD FOREIGN KEY (`itemId`)
 REFERENCES `Item`(`id`)
 ON DELETE SET NULL;
+
 show tables;
 
 

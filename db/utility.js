@@ -17,7 +17,8 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
                     id: comment.id,
                     content: comment.content,
                     time: comment.time,
-                    rate:comment.rate
+                    rate:comment.rate,
+                    imgUrl: comment.imgUrl
                 }]
             }
         })
