@@ -5,6 +5,7 @@ import {queryAllItem, queryItemById} from "../db/utility.js"
 import { createOrder as createOrderDb } from "../db/utility.js"
 import path from "path"
 import fs from "fs"
+import { v4 as uuidv4 } from "uuid"
 // ! passing context from Appolo server constructor is not working
 const Mutation = {
     singleUpload: async (parent, {file}) => {
@@ -57,16 +58,16 @@ const Mutation = {
     },
     async createItem(parent, {data, file}, {}, info){
         console.log("recevied data:", data)
-        let itemId = "item"+Math.floor(Math.random()*1000)
+        let itemId = "item"+uuidv4()
         let sql = `INSERT INTO \`Item\` VALUES('${itemId}', '${itemId}.jpeg', ${data.price} )`
         try{
             let result = await dbMutation(sql)
         }catch(e){
             console.log("Fail sql: ", sql, e)
         }
-        sql = `INSERT INTO \`Item_Trans\` VALUES('${Math.floor(Math.random()*1000)}','zh', '${data.name}' , 'description', 'type', '${itemId}')`
+        sql = `INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','zh', '${data.name}' , 'description', 'type', '${itemId}')`
         try{
-            let result = await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${Math.floor(Math.random()*1000)}','zh', '${data.name}' , 'description', 'type', '${itemId}')`)
+            let result = await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','zh', '${data.name}' , 'description', 'type', '${itemId}')`)
         }catch(e){
             console.log("Fail sql: ", sql, e)
         }

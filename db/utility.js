@@ -98,7 +98,7 @@ const createOrder = async (order)=>{
             let Order_Item_InfoId = order.id+"_"+item.id
             await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}')`)
     
-            // let Order_ItemId = "Order_Item" + Math.floor(Math.random()*1000)
+            
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
         })
     }catch(e){
