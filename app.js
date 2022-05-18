@@ -38,7 +38,4 @@ app.use(paymentRouter);
  // This middleware should be added before calling `applyMiddleware`.
 app.use(graphqlUploadExpress());
 app.use(express.static("public"))
-// app.listen({port:80}, ()=>{
-//     console.log("app listen")
-// })
 export default app
