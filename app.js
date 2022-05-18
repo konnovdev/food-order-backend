@@ -5,6 +5,7 @@ import paymentRouter from "./routes/payment.js";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import orderRoutes from "./routes/order.js";
+import commentRoutes from "./routes/comment.js";
 import cors from "cors"
 import {graphqlUploadExpress} from 'graphql-upload';
 
@@ -35,6 +36,7 @@ app.use(restaurantRoutes);
 app.use(menuRoutes);
 app.use(orderRoutes);
 app.use(paymentRouter);
+app.use(commentRoutes)
  // This middleware should be added before calling `applyMiddleware`.
 app.use(graphqlUploadExpress());
 app.use(express.static("public"))
