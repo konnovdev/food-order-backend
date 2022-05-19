@@ -9,6 +9,7 @@ type Mutation{
     updateItem(id: String!, data: UpdateItemInput!, file: Upload): Item! # 更新某道菜的資訊
     deleteItem(id: String!): Item! # 刪除某道菜
     singleUpload(file: Upload!): File!
+    updateOrderItemState(orderId: String!, itemId: String!, state: String!): String!
 }
 type Subscription{
     order(restaurantId: String!): [Order!] # 等待新的訂單進來
@@ -115,6 +116,7 @@ type Restaurant{
 type OrderItemInfo{
 	quantity: Int! 
 	note: String
+    state: String!
 }
 
 type Comment{ 

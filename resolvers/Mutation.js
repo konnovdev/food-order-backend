@@ -1,7 +1,6 @@
 import {pubsub} from "./context.js"
-import { orderList, addToOrderList } from "../controllers/order.js"
 import {dbMutation, dbQuery} from "../db/connection.js"
-import {queryAllItem, queryItemById} from "../db/utility.js"
+import {queryAllItem, queryItemById, queryAllOrder} from "../db/utility.js"
 import { createOrder as createOrderDb } from "../db/utility.js"
 import path from "path"
 import fs from "fs"
@@ -48,11 +47,12 @@ const Mutation = {
             })
 
         }
+        let orderPub = await queryAllOrder()
+        console.log("orderPub", orderPub)
+        // await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
         pubsub.publish('order', {
-            order:{
-                mutation: "CREATED",
-                data: publishData
-            }
+            order: orderPub
+            
         })
         return "success"
     },
@@ -134,7 +134,29 @@ const Mutation = {
         let [result] = allItem.filter(e=>e.itemId===id)
         await dbMutation(`DELETE FROM \`Item\` WHERE \`id\`='${id}'`)
         return result
-    }
+    },
+    async updateOrderItemState(parent, {orderId, itemId, state}, {}, info){
+        console.log("updateOrderItemState received", orderId, itemId, state)
+        try{
+            let sql = `UPDATE \`Order_Item_Info\`
+            SET \`state\` = '${state}'
+            WHERE \`itemId\`= '${itemId}' AND \`orderId\`='${orderId}'`
+            await dbMutation(sql)
+            
+        }catch(e){
+            console.log("fail update item state", e)
+        }
+        console.log("finish update db")
+        let orderPub = await queryAllOrder()
+        
+        console.log("orderPub", orderPub)
+        // await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
+        pubsub.publish('order', {
+            order: orderPub
+            
+        })
+        return result
+    },
 }
 
 export default Mutation
