@@ -24,7 +24,8 @@ const postOrder = async (req, res)=>{
 }
 const getAllOrder = async (req, res)=>{   
     // refer to graphql part
-    res.status(200).send("refer to graphql part")
+    
+    res.status(200).send(await queryAllOrder())
 }
 const addToOrderList = (element)=>{
     orderList = [...orderList, element]
