@@ -1,5 +1,6 @@
 import { dbQuery, dbMutation } from "./connection.js"
 import path from "path"
+import {STATUS_UNREADY} from "./constant.js"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -96,7 +97,7 @@ const createOrder = async (order)=>{
         await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
         order.items.forEach(async (item)=>{
             let Order_Item_InfoId = order.id+"_"+item.id
-            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}')`)
+            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}'), '${STATUS_UNREADY}')`)
     
             
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
@@ -133,7 +134,7 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
     orderIdList.forEach((e)=>{
         orderItemObj[e] = {"items":[]}
     })
-    console.log("orderItemObj", orderItemObj)
+    
     // put items into orderItemObj
     orderItemInfoResult.forEach((e1)=>{
         let orderId = e1.orderId
@@ -143,10 +144,12 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
             "orderItemInfo":{
                 "quantity": e1.quantity,
                 "note": e1.note,
+                "state": e1.state
             },
             ...itemObj[itemId]
         }]
     })
+    console.log("orderItemObj", orderItemObj) 
     return orderItemObj
 }
 const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
@@ -170,18 +173,15 @@ const queryAllOrder = async ()=>{
     // to create a list of all orderId
     let orderIdList = prepareOrderIdList(orderResult)
     console.log("orderIdList", orderIdList)
-    // console.log("orderIdList", orderIdList)
     // prepare orderItemObj: itemId as a key
     let itemObj = prepareItem(itemTransResult, itemResult)
-    // console.log("itemObj", itemObj)
+
     // prepare orderItemObj: order.id as a key, content of order as a value
     let orderItemObj = preapreOrderItem(orderIdList, orderItemInfoResult, itemObj)
-    // console.log("orderItemInfoResult", orderItemInfoResult)
-    // console.log("orderItemObj", orderItemObj)
-    console.log("orderItemObj[order001]", orderItemObj["order001"])
+
     // prepare orderList by combine orderItemObj and orderResult
     let orderList = prepareOrderList(orderIdList, orderResult, orderItemObj)
-    console.log("orderList")
+    console.log("finish order queryAllOrder()")
     return orderList
 }
 
