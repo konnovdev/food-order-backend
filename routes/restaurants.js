@@ -1,6 +1,5 @@
 import {Router} from "express";
 import {getAll} from '../controllers/restaurants.js'
-
 const router = Router()
 
 /**

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { postHistory } from "../controllers/tradeHistory";
+import { postHistory } from "../controllers/tradeHistory.js";
 const router = Router()
 
 
@@ -12,6 +12,6 @@ const router = Router()
  *       '200':
  *         description: A successful response
  */
- router.post('/tradeHistory', postHistory)
+router.post('/tradeHistory', postHistory)
 
- export default router
+export default router
