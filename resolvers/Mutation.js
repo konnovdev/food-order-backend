@@ -150,7 +150,6 @@ const Mutation = {
         let orderPub = await queryAllOrder()
         
         console.log("orderPub", orderPub)
-        // await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
         pubsub.publish('order', {
             order: orderPub
             
