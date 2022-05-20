@@ -1,4 +1,3 @@
-CREATE DATABASE `quickOrder`;
 ALTER DATABASE `quickOrder` COLLATE = `utf8mb4_unicode_ci`;
 USE `quickOrder`;
 CREATE TABLE `Item` (

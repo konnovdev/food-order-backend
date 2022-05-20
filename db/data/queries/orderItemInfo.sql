@@ -1,3 +1,4 @@
+USE `quickOrder`;
 DESCRIBE Order_Item_Info;
 
 INSERT INTO `Order_Item_Info` VALUES('order001_item001', 'order001', 'item001' , 1, "飯不要太多", 'unready');

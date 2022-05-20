@@ -1,5 +1,6 @@
 import { dbQuery, dbMutation } from "./connection.js"
 import path from "path"
+import {STATUS_UNREADY} from "./constant.js"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -96,7 +97,7 @@ const createOrder = async (order)=>{
         await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
         order.items.forEach(async (item)=>{
             let Order_Item_InfoId = order.id+"_"+item.id
-            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}'), 'unready')`)
+            await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', '${item.quantity}', '${item.note}'), '${STATUS_UNREADY}')`)
     
             
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
