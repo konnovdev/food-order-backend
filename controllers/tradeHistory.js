@@ -18,7 +18,7 @@ const options = {
     headers: {
     "Content-Type": "application/json",
     "x-api-key":
-        "partner_wcxH5GX2HMLk9p2WpfOYSWseWOyn0mE0K1VwqjIZAgDGCsRZ4BEqMCaL",
+        process.env.x_api_key,
     },
 };
 
