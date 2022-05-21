@@ -10,6 +10,7 @@ const gettotalprice = (cart) => {
 };
 
 const postPayment = async (req, res) => {
+    console.log("req.body", req.body)
     const cart = req.body.cart
   
     let details = ""
@@ -37,7 +38,7 @@ const postPayment = async (req, res) => {
         "instalment": 0,
         "remember": false,
         "line_pay_product_image_url":"https://i.postimg.cc/2869N4CP/logo512.png",
-         "result_url":{"frontend_redirect_url":"https://google.com", "backend_notify_url":"https://google.com"}
+        "result_url":{"frontend_redirect_url":"https://google.com", "backend_notify_url":"https://google.com"}
     }
     const post_options = {
       // host: 'https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime',
