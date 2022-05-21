@@ -97,7 +97,9 @@ const createOrder = async (order)=>{
         await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}' )`)
         order.items.forEach(async (item)=>{
             let Order_Item_InfoId = order.id+"_"+item.id
+
             await dbMutation(`INSERT INTO \`Order_Item_Info\` VALUES('${Order_Item_InfoId}', '${order.id}', '${item.id}', ${item.quantity}, '${item.note}', '${STATUS_UNREADY}')`)
+
     
             
             await dbMutation(`INSERT INTO \`Order_Item\` VALUES('${order.id}', '${order.id}', '${item.id}', '${Order_Item_InfoId}')`)
@@ -134,7 +136,7 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
     orderIdList.forEach((e)=>{
         orderItemObj[e] = {"items":[]}
     })
-    console.log("orderItemObj", orderItemObj)
+    
     // put items into orderItemObj
     orderItemInfoResult.forEach((e1)=>{
         let orderId = e1.orderId
@@ -149,6 +151,7 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
             ...itemObj[itemId]
         }]
     })
+    console.log("orderItemObj", orderItemObj) 
     return orderItemObj
 }
 const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
@@ -164,7 +167,6 @@ const prepareOrderList = (orderIdList, orderResult, orderItemObj)=>{
     return orderList
 }
 const queryAllOrder = async ()=>{
-    console.log("start queryAllOrder()")
     let orderResult = await dbQuery('SELECT * FROM `Order`')
     let orderItemResult = await dbQuery('SELECT `orderId`, `itemId`, `orderItemInfoId` FROM `Order_Item`')
     let orderItemInfoResult = await dbQuery('SELECT * FROM `Order_Item_Info`')

@@ -33,7 +33,8 @@ CREATE TABLE `Order_Item_Info`(
     `orderId` VARCHAR(50),
     `itemId` VARCHAR(50),
     `quantity` INT,
-    `Note` VARCHAR(120)
+    `Note` VARCHAR(120),
+    `state` VARCHAR(10)
 );
 
 CREATE TABLE `Comment`(
@@ -94,5 +95,3 @@ REFERENCES `Item`(`id`)
 ON DELETE SET NULL;
 
 show tables;
-
-
