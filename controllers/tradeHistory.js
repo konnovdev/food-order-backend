@@ -38,42 +38,5 @@ req1.on("error", (error) => {
 req1.write(data);
 req1.end();
 
-
-// const tradeResult = await axios.post(
-//     "https://sandbox.tappaysdk.com/tpc/transaction/trade-history",
-//     {
-//     partner_key:
-//         "partner_wcxH5GX2HMLk9p2WpfOYSWseWOyn0mE0K1VwqjIZAgDGCsRZ4BEqMCaL",
-//     rec_trade_id: trade_id,
-//     },
-//     {
-//     headers: {
-//         "Content-Type": "application/json",
-//         "x-api-key":
-//         "partner_wcxH5GX2HMLk9p2WpfOYSWseWOyn0mE0K1VwqjIZAgDGCsRZ4BEqMCaL",
-//     },
-//     }
-// );
-// const post_data = {};
-// const post_req = https.request(post_options, function (response) {
-//     response.setEncoding("utf8");
-//     response.on("data", function (body) {
-//     console.log(body);
-//     data = body;
-//     res.json(JSON.parse(body));
-//     });
-//     response.on("end", () => {
-//     //no more data in response
-//     // const body = JSON.parse(data);
-//     return data;
-//     });
-// });
-// post_req.on("error", (error) => {
-//     console.log("An error", error);
-// });
-// post_req.write(JSON.stringify(post_data));
-// post_req.end();
-// console.log(data);
-// return tradeResult;
 };
 export { postHistory };
