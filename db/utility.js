@@ -39,6 +39,9 @@ const queryAllItem = async(selectedLanguage)=>{
     let itemResult
     let itemCommentResult
     let commentResult
+    if (selectedLanguage === undefined) {
+        selectedLanguage = DEFAULT_LANGUAGE
+    }
 
     try{
         itemTransResult = await dbQuery(`SELECT * FROM \`Item_Trans\` WHERE lang='${selectedLanguage}'`)
@@ -187,8 +190,10 @@ const queryAllOrder = async ()=>{
     return orderList
 }
 
+const DEFAULT_LANGUAGE = "zh"
 
-export {queryAllItem,
+export {
+    queryAllItem,
     queryItemById,
     createOrder,
     queryAllOrder
