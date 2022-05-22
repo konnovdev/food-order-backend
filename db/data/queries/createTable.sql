@@ -19,7 +19,13 @@ CREATE TABLE `Order`(
 	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `tableNo` VARCHAR(20) NOT NULL ,
     `totalPrice` INT,
-    `time` VARCHAR(50)
+    `time` VARCHAR(50),
+    `customerId` VARCHAR(50),
+    `customerName` VARCHAR(50),
+    `isTakeOut` VARCHAR(10),
+    `arrivedTime` VARCHAR(50)
+    
+    
 );
 CREATE TABLE `Order_Item`(
 	`id` VARCHAR(50) NOT NULL PRIMARY KEY,
