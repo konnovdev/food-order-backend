@@ -34,14 +34,14 @@ const makeImgUrl = (imgFromDb)=>{
     return imgUrl
 }
 
-const queryAllItem = async()=>{
+const queryAllItem = async(selectedLanguage)=>{
     let itemTransResult
     let itemResult
     let itemCommentResult
     let commentResult
 
     try{
-        itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+        itemTransResult = await dbQuery(`SELECT * FROM \`Item_Trans\` WHERE lang='${selectedLanguage}'`)
     }catch(e){
         console.log("Fail itemTransResult", e)
     }
