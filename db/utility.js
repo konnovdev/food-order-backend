@@ -39,7 +39,7 @@ const queryAllItem = async(selectedLanguage)=>{
     let itemResult
     let itemCommentResult
     let commentResult
-    if (selectedLanguage === undefined) {
+    if (selectedLanguage === undefined || selectedLanguage === "") {
         selectedLanguage = DEFAULT_LANGUAGE
     }
 

@@ -1,5 +1,3 @@
-import {getOrderById, prepareItem, preapreOrderItem, prepareOrderIdList, prepareOrderList}  from "./utility.js"
-import {dbQuery} from "../db/connection.js"
 import {queryAllItem, queryAllOrder} from "../db/utility.js"
 const Query = {
     queryTest(parent, {}, {}, info){
@@ -9,7 +7,7 @@ const Query = {
 
 
     async items(parent, {}, {db}, info){
-        let result = await queryAllItem()
+        let result = await queryAllItem(lang)
         console.log("result", result)
         return result
     },
@@ -20,4 +18,10 @@ const Query = {
     },
 }
 
-export default Query;
+let lang = ""
+
+function setLang(language) {
+    lang = language
+}
+
+export {Query, setLang};

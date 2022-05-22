@@ -1,5 +1,6 @@
 import {importSchema} from "graphql-import";
-import Query from "./resolvers/Query.js";
+import {Query} from "./resolvers/Query.js";
+import {setLang} from "./resolvers/Query.js";
 import Mutation from "./resolvers/Mutation.js";
 import Subscription from "./resolvers/Subscription.js";
 import {ApolloServer} from "apollo-server-express";
@@ -8,7 +9,7 @@ import {makeExecutableSchema} from '@graphql-tools/schema';
 import {SubscriptionServer} from "subscriptions-transport-ws"
 import {execute, subscribe} from "graphql"
 import app from "./app.js"
-import  {GraphQLUpload} from 'graphql-upload';
+import {GraphQLUpload} from 'graphql-upload';
 
 const PORT = process.env.NODEJS_PORT ?? 80;
 const {schema, server} = setUpGraphqlServer();
@@ -31,6 +32,9 @@ function setUpGraphqlServer() {
             Query,
             Mutation,
             Subscription,
+        },
+        context: ({req}) => {
+            setLang(req.headers["content-language"])
         },
     });
     return {schema, server};
