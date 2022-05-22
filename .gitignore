@@ -5,3 +5,4 @@ yarn-error.log
 /db/data/*
 !/db/data/queries
 /public
+.DS_Store
