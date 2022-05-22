@@ -7,7 +7,7 @@ console.log("postHistory received:", req.body)
 const trade_id = req.body.trade_id;
 const data = JSON.stringify({
     partner_key:
-    process.env.x-api-key,
+    process.env.X_API_KEY,
     rec_trade_id: trade_id,
     });
 const options = {
@@ -18,7 +18,7 @@ const options = {
     headers: {
     "Content-Type": "application/json",
     "x-api-key":
-        process.env.x_api_key,
+        process.env.X_API_KEY,
     },
 };
 
