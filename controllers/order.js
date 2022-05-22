@@ -1,7 +1,5 @@
 import { pubsub } from "../resolvers/context.js"
 import { orderList } from "../db/db.js"
-import {dbQuery} from "../db/connection.js"
-import {dbMutation} from "../db/connection.js"
 import { createOrder, queryAllOrder } from "../db/utility.js"
 
 const postOrder = async (req, res)=>{
