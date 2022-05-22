@@ -94,7 +94,7 @@ const queryItemById = async (id)=>{
 const createOrder = async (order)=>{
     // todo is there a way to make these query a transaction?
     try{
-        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}'  )`)
+        await dbMutation(`INSERT INTO \`Order\` VALUES('${order.id}', '${order.tableNo}', ${order.totalPrice}, '${order.time}', '${order.customerId}', '${order.customerName}', '${order.isTakeOut}', '${order.arrivedTime}'  )`)
         order.items.forEach(async (item)=>{
             let Order_Item_InfoId = order.id+"_"+item.id
 

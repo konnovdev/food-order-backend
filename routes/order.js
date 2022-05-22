@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {postOrder, getAllOrder} from "../controllers/order.js"
+import {postOrder, getAllOrder, getOrderById} from "../controllers/order.js"
 
 const router = Router()
 
@@ -32,5 +32,18 @@ router.post('/order', postOrder)
  *         description: A successful response
  */
 router.get('/order', getAllOrder)
+
+/**
+ * @swagger
+ * /orderById:
+ *   get:
+ *     summary: Get a list of orders by customerId
+ *     parameters:
+ *       - customerId: google id of the customer
+ *     responses:
+ *       '200':
+ *         description: A successful response
+ */
+ router.get('/orderById', getOrderById)
 
 export default router
