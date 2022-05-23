@@ -156,7 +156,7 @@ const Mutation = {
         console.log("updateOrderItemState received", orderId, itemId, state)
         try{
             let sql = `UPDATE \`Order_Item_Info\`
-            SET \`state\` = '${DEFAULT_ITEM_STATUS_DISABLE}'
+            SET \`state\` = '${state}'
             WHERE \`itemId\`= '${itemId}' AND \`orderId\`='${orderId}'`
             await dbMutation(sql)
             
