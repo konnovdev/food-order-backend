@@ -1,16 +1,16 @@
 USE `quickOrder`;
 
 DESCRIBE `Item`;
-INSERT INTO `Item` VALUES('item001','item001.jpeg', 1);
-INSERT INTO `Item` VALUES('item002','item002.jpeg', 1);
-INSERT INTO `Item` VALUES('item003','item003.jpeg', 1);
-INSERT INTO `Item` VALUES('item004','item004.jpeg', 1);
-INSERT INTO `Item` VALUES('item005','item005.jpeg', 1);
-INSERT INTO `Item` VALUES('item006','item006.jpeg', 1);
-INSERT INTO `Item` VALUES('item007','item007.jpeg', 1);
-INSERT INTO `Item` VALUES('item008','item008.jpeg', 1);
-INSERT INTO `Item` VALUES('item009','item009.jpeg', 1);
-INSERT INTO `Item` VALUES('item010','item010.jpeg', 1);
+INSERT INTO `Item` VALUES('item001','item001.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item002','item002.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item003','item003.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item004','item004.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item005','item005.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item006','item006.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item007','item007.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item008','item008.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item009','item009.jpeg', 1, "enable");
+INSERT INTO `Item` VALUES('item010','item010.jpeg', 1, "enable");
 select * from `Item`;
 
 

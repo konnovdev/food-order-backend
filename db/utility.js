@@ -1,6 +1,7 @@
 import { dbQuery, dbMutation } from "./connection.js"
 import path from "path"
 import {STATUS_UNREADY} from "./constant.js"
+import {DEFAULT_ITEM_STATUS_ENABLE} from "../constant/constant.js"
 const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
     // handle comments
     let itemCommentObj = {}
@@ -83,6 +84,9 @@ const queryAllItem = async(selectedLanguage)=>{
         })
     })
     // console.log("result", result)
+    result = result.filter((item)=>{
+        if (item.status==DEFAULT_ITEM_STATUS_ENABLE){return true}
+    })
     return result
 }
 
