@@ -26,4 +26,4 @@ jobs:
         run: ls -lah
 
       - name: Deploy with rsync
-        run: rsync -rltDvzP ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:repos/eatba/food-order-backend
+        run: rsync -rlDvzP ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:repos/eatba/food-order-backend

@@ -9,7 +9,7 @@
 ------------
 
 ### Pre setup
-1) Create a **.env** file and set the DB credentials (see **.env_example** as a reference)
+1) Create a **.env** file and set the DB credentials and tappaysdk token (see **.env_example** as a reference)
 2) Fill DB with data (see sample data in **db/data/queries**)
 If you're running docker it's done like this:
 * `docker exec -it containerId /bin/bash` (**containerId** can be obtained from `docker ps` after you ran your project with `docker-compose up`, you need the **containerId** of maria db!)
