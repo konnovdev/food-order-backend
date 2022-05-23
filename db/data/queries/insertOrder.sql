@@ -1,3 +1,4 @@
+USE `quickOrder`;
 DESCRIBE `Order`;
 
 INSERT INTO `Order` VALUES('order001','15A', 165, "2022-04-11T12:20:05", "customerId", "customerName", "false", "2022-04-11T12:20:05", 2);
