@@ -1,6 +1,6 @@
 import { pubsub } from "../resolvers/context.js"
 import { orderList } from "../db/db.js"
-import { createOrder, queryAllOrder } from "../db/utility.js"
+import { createOrder, queryAllOrder, queryOrderByIdDb } from "../db/utility.js"
 import { dbQuery } from "../db/connection.js"
 const postOrder = async (req, res)=>{
     let order = req.body
@@ -23,8 +23,8 @@ const postOrder = async (req, res)=>{
 const getAllOrder = async (req, res)=>{   
     // refer to graphql part
     // why I cannot write res.status(200).send(await queryAllOrder()) to pass auto test
-    // res.status(200).send(await queryAllOrder())
-    res.status(200).send("refer to graphql part") 
+    res.status(200).send(await queryAllOrder())
+    // res.status(200).send("refer to graphql part") 
 }
 const addToOrderList = (element)=>{
     orderList = [...orderList, element]
@@ -32,8 +32,8 @@ const addToOrderList = (element)=>{
 const getOrderById = async (req, res)=>{
     console.log("getOrderById body", req.body)
     let customerId = req.body.customerId
-    let orderById = await dbQuery(`SELECT * FROM \`Order\` WHERE \`customerId\` = '${customerId}'`)
-    res.status(200).send(orderById)
+    // let orderById = await dbQuery(`SELECT * FROM \`Order\` WHERE \`customerId\` = '${customerId}'`)
+    res.status(200).send(await queryOrderByIdDb(customerId))
 }
 
 export {postOrder, getAllOrder, orderList, addToOrderList, getOrderById}

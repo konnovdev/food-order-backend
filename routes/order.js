@@ -44,6 +44,6 @@ router.get('/order', getAllOrder)
  *       '200':
  *         description: A successful response
  */
- router.get('/orderById', getOrderById)
+router.post('/orderById', getOrderById)
 
 export default router
