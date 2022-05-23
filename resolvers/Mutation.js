@@ -78,17 +78,22 @@ const Mutation = {
         
         //* handle upload image
         console.log("file", file)
-        const { createReadStream, filename, mimetype, encoding } = await file.file;
-        // Invoking the `createReadStream` will return a Readable Stream.
-        // See https://nodejs.org/api/stream.html#stream_readable_streams
+        try{
+            const { createReadStream, filename, mimetype, encoding } = await file.file;
+            // Invoking the `createReadStream` will return a Readable Stream.
+            // See https://nodejs.org/api/stream.html#stream_readable_streams
+        
+            const pathName = path.join(path.resolve(), `/public/images/${itemId}.jpeg`)
+            console.log("pathName", pathName)
+            const stream = createReadStream();
+            await stream.pipe(fs.createWriteStream(pathName))
     
-        const pathName = path.join(path.resolve(), `/public/images/${itemId}.jpeg`)
-        console.log("pathName", pathName)
-        const stream = createReadStream();
-        await stream.pipe(fs.createWriteStream(pathName))
+            // This is purely for demonstration purposes and will overwrite the
+            // local-file-output.txt in the current working directory on EACH upload.
+        }catch (e){
+            console.log("fail upload image", file, e)
+        }
 
-        // This is purely for demonstration purposes and will overwrite the
-        // local-file-output.txt in the current working directory on EACH upload.
         
 
         return result
@@ -115,17 +120,21 @@ const Mutation = {
         }
         // handle update image
         console.log("file", file)
-        const { createReadStream, filename, mimetype, encoding } = await file.file;
-        // Invoking the `createReadStream` will return a Readable Stream.
-        // See https://nodejs.org/api/stream.html#stream_readable_streams
+        try{
+            const { createReadStream, filename, mimetype, encoding } = await file.file;
+            // Invoking the `createReadStream` will return a Readable Stream.
+            // See https://nodejs.org/api/stream.html#stream_readable_streams
+        
+            const pathName = path.join(path.resolve(), `/public/images/${itemId}.jpeg`)
+            console.log("pathName", pathName)
+            const stream = createReadStream();
+            await stream.pipe(fs.createWriteStream(pathName))
     
-        const pathName = path.join(path.resolve(), `/public/images/${itemId}.jpeg`)
-        console.log("pathName", pathName)
-        const stream = createReadStream();
-        await stream.pipe(fs.createWriteStream(pathName))
-
-        // This is purely for demonstration purposes and will overwrite the
-        // local-file-output.txt in the current working directory on EACH upload.
+            // This is purely for demonstration purposes and will overwrite the
+            // local-file-output.txt in the current working directory on EACH upload.
+        }catch (e){
+            console.log("fail upload image", file, e)
+        }
         
         return await queryItemById(id)
 
