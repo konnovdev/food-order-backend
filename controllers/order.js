@@ -24,7 +24,7 @@ const getAllOrder = async (req, res)=>{
     // refer to graphql part
     // why I cannot write res.status(200).send(await queryAllOrder()) to pass auto test
     // res.status(200).send(await queryAllOrder())
-    res.status(200).send("refer to graphql part")
+    res.status(200).send("refer to graphql part") 
 }
 const addToOrderList = (element)=>{
     orderList = [...orderList, element]
