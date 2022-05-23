@@ -1,3 +1,4 @@
+
 ALTER DATABASE `quickOrder` COLLATE = `utf8mb4_unicode_ci`;
 USE `quickOrder`;
 CREATE TABLE `Item` (
@@ -23,7 +24,8 @@ CREATE TABLE `Order`(
     `customerId` VARCHAR(50),
     `customerName` VARCHAR(50),
     `isTakeOut` VARCHAR(10),
-    `arrivedTime` VARCHAR(50)
+    `arrivedTime` VARCHAR(50),
+    `herePeople` INT
     
     
 );

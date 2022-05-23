@@ -141,6 +141,7 @@ const preapreOrderItem = (orderIdList, orderItemInfoResult, itemObj)=>{
     })
     
     // put items into orderItemObj
+    console.log("orderItemInfoResult", orderItemInfoResult)
     orderItemInfoResult.forEach((e1)=>{
         let orderId = e1.orderId
         let itemId = e1.itemId
@@ -189,6 +190,46 @@ const queryAllOrder = async ()=>{
     console.log("finish order queryAllOrder()")
     return orderList
 }
+const OrderItemInfoResultByOrderList = async (orderIdList)=>{
+    let orderItemInfoResult =  []
+    orderIdList.forEach(async (orderId)=>{
+        let tmp = await dbQuery(`SELECT * FROM \`Order_Item_Info\` WHERE \`orderId\` = '${orderId}' `)
+        console.log(orderId, "tmp", tmp)
+        orderItemInfoResult = [...orderItemInfoResult, ...tmp]
+    })
+    return orderItemInfoResult
+}
+const queryOrderByIdDb = async (customerId)=>{
+    let orderResult = await dbQuery(`SELECT * FROM \`Order\` WHERE \`customerId\` = '${customerId}'`)
+    let orderItemResult = await dbQuery('SELECT `orderId`, `itemId`, `orderItemInfoId` FROM `Order_Item`')
+    let orderItemInfoResult = await dbQuery('SELECT * FROM `Order_Item_Info`')
+    let itemTransResult = await dbQuery('SELECT * FROM `Item_Trans` WHERE `lang`=\'zh\'')
+    let itemResult = await dbQuery('SELECT * FROM `Item`')
+    // to create a list of all orderId
+    let orderIdList = prepareOrderIdList(orderResult)
+    console.log("orderIdList", orderIdList)
+
+    // prepare orderItemObj: itemId as a key
+    let itemObj = prepareItem(itemTransResult, itemResult)
+
+    // prepare orderItemObj: order.id as a key, content of order as a value
+    // filter out the irrelevant order
+    orderItemInfoResult = orderItemInfoResult.filter((e)=>{
+        if (orderIdList.includes(e.orderId)){
+            return true
+        }
+    })
+    console.log("orderItemInfoResult", orderItemInfoResult)
+    let orderItemObj = preapreOrderItem(orderIdList, orderItemInfoResult, itemObj)
+
+    // prepare orderList by combine orderItemObj and orderResult
+    let orderList = prepareOrderList(orderIdList, orderResult, orderItemObj)
+    console.log("finish order queryAllOrder()")
+    return orderList
+    
+
+
+}
 
 const DEFAULT_LANGUAGE = "zh"
 
@@ -196,5 +237,6 @@ export {
     queryAllItem,
     queryItemById,
     createOrder,
-    queryAllOrder
+    queryAllOrder,
+    queryOrderByIdDb
 }
