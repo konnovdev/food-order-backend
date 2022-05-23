@@ -132,6 +132,9 @@ const Mutation = {
     },
     async deleteItem(parent, {id}, {}, info){
         //todo delete item and at the same time delete image file
+        // todo discuss with frontend stuff the return data
+        let allItem = await queryAllItem()
+        let [result] = allItem.filter(e=>e.itemId===id)
         try{
             await dbMutation(`UPDATE \`Item\` 
             SET \`status\` = '${DEFAULT_ITEM_STATUS_DISABLE}'
@@ -139,8 +142,7 @@ const Mutation = {
         }catch(e){
             console.log("fail delete item", item, e)
         }
-        let allItem = await queryAllItem()
-        let [result] = allItem.filter(e=>e.itemId===id)
+
         return result
     },
     async updateOrderItemState(parent, {orderId, itemId, state}, {}, info){
