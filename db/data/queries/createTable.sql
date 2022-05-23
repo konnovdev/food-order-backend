@@ -4,7 +4,8 @@ USE `quickOrder`;
 CREATE TABLE `Item` (
     `id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `img` VARCHAR(150),
-    `price` int
+    `price` int,
+    `status` VARCHAR(50)
     
 );
 CREATE TABLE `Item_Trans`(

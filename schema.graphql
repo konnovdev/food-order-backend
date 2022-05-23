@@ -29,6 +29,7 @@ type OrderKitchen{
 type ItemKitchen{
     id: String!
     name: String!
+    status: String!
     orderItemInfo: OrderItemInfo!
 }
 input UpdateItemInput{
@@ -50,6 +51,7 @@ type Item{
 	name: String!
 	description: String!
 	price: Int!
+    status: String!
 	img: String!  # 可以是檔案路徑或網址
 	comments: [Comment!] # 先放著，以後如果要做給餐廳看所有評論的介面可以拿這個資料
 	orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊

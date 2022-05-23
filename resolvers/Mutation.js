@@ -2,6 +2,7 @@ import {pubsub} from "./context.js"
 import {dbMutation, dbQuery} from "../db/connection.js"
 import {queryAllItem, queryItemById, queryAllOrder} from "../db/utility.js"
 import { createOrder as createOrderDb } from "../db/utility.js"
+import {DEFAULT_ITEM_STATUS_ENABLE, DEFAULT_ITEM_STATUS_DISABLE} from "../constant/constant.js"
 import path from "path"
 import fs from "fs"
 import { v4 as uuidv4 } from "uuid"
@@ -59,7 +60,7 @@ const Mutation = {
     async createItem(parent, {data, file}, {}, info){
         console.log("recevied data:", data)
         let itemId = "item"+uuidv4()
-        let sql = `INSERT INTO \`Item\` VALUES('${itemId}', '${itemId}.jpeg', ${data.price} )`
+        let sql = `INSERT INTO \`Item\` VALUES('${itemId}', '${itemId}.jpeg', ${data.price}, '${DEFAULT_ITEM_STATUS_ENABLE}' )`
         try{
             let result = await dbMutation(sql)
         }catch(e){
@@ -131,16 +132,22 @@ const Mutation = {
     },
     async deleteItem(parent, {id}, {}, info){
         //todo delete item and at the same time delete image file
+        try{
+            await dbMutation(`UPDATE \`Item\` 
+            SET \`status\` = '${DEFAULT_ITEM_STATUS_DISABLE}'
+            WHERE \`id\`='${id}'`)
+        }catch(e){
+            console.log("fail delete item", item, e)
+        }
         let allItem = await queryAllItem()
         let [result] = allItem.filter(e=>e.itemId===id)
-        await dbMutation(`DELETE FROM \`Item\` WHERE \`id\`='${id}'`)
         return result
     },
     async updateOrderItemState(parent, {orderId, itemId, state}, {}, info){
         console.log("updateOrderItemState received", orderId, itemId, state)
         try{
             let sql = `UPDATE \`Order_Item_Info\`
-            SET \`state\` = '${state}'
+            SET \`state\` = '${DEFAULT_ITEM_STATUS_DISABLE}'
             WHERE \`itemId\`= '${itemId}' AND \`orderId\`='${orderId}'`
             await dbMutation(sql)
             
