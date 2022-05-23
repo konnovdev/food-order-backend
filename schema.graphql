@@ -54,15 +54,25 @@ type Item{
 	comments: [Comment!] # 先放著，以後如果要做給餐廳看所有評論的介面可以拿這個資料
 	orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊
 }
-input CreateItemInput{ 
+input CreateItemInput{
 	name: String!
+    description: String!,
 	price: Int!
-	img: String
+	img: String!,
+	type: String!,
+	englishName: String!,
+	englishDescription: String!
+	englishType: String!
 }
 input UpdateItemInput{
 	name: String!
+    description: String!,
 	price: Int!
-	img: String
+	img: String!,
+	type: String!,
+	englishName: String!,
+	englishDescription: String!
+	englishType: String!
 }
 enum Status{
     RAW

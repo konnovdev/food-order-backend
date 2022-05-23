@@ -67,7 +67,8 @@ const Mutation = {
         }
         sql = `INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','zh', '${data.name}' , 'description', 'type', '${itemId}')`
         try{
-            let result = await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','zh', '${data.name}' , 'description', 'type', '${itemId}')`)
+            await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','zh', '${data.name}' , '${data.description}', '${data.type}', '${itemId}')`)
+            await dbMutation(`INSERT INTO \`Item_Trans\` VALUES('${uuidv4()}','en', '${data.englishName}' , '${data.englishDescription}', '${data.englishType}', '${itemId}')`)
         }catch(e){
             console.log("Fail sql: ", sql, e)
         }
