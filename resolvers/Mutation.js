@@ -112,8 +112,17 @@ const Mutation = {
         }
         try{
             let sql = `UPDATE \`Item_Trans\`
-            SET \`name\` = '${data.name}'
-            WHERE \`itemId\`= '${currentItem.id}'`
+            SET \`name\` = '${data.name}', \`description\` = '${data.description}', \`type\` = '${data.type}'
+            WHERE \`itemId\`= '${currentItem.id}' AND \`lang\`= 'zh'`
+            await dbMutation(sql)
+        }catch(e){
+            console.log("fail update name", e)
+        }
+        
+        try{
+            let sql = `UPDATE \`Item_Trans\`
+            SET \`name\` = '${data.englishName}', \`description\` = '${data.englishDescription}', \`type\` = '${data.englishType}'
+            WHERE \`itemId\`= '${currentItem.id}' AND \`lang\`= 'en'`
             await dbMutation(sql)
         }catch(e){
             console.log("fail update name", e)
