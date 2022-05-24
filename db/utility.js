@@ -31,9 +31,8 @@ const handleComment = (itemTransResult, itemCommentResult, commentResult)=>{
 const makeImgUrl = (imgFromDb)=>{
     // todo is there a way to get current backend url?
     let urlBase = `https://49e6-150-117-240-26.ngrok.io`
-    // console.log("urlBase", urlBase)
     let imgUrl  = urlBase + "/images/" + imgFromDb 
-    console.log("imgUrl", imgUrl)
+
     return imgUrl
 }
 
