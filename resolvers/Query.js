@@ -19,7 +19,6 @@ const Query = {
         return orderList
     },
     async itemAllLang(parent, {}, {}, info){
-        console.log("itemAllLang")
         let itemDefaultLang = await queryAllItem()
         let itemEng = await queryAllItem("en")
 
