@@ -2,6 +2,7 @@ type Query {
     queryTest: String!
     items(restaurantID: ID!):[Item!]
     todayOrders(restaurantID: ID!): [Order!]
+    itemAllLang(restaurantID: ID!): [ItemTwoLang!]
 }
 type Mutation{
     createOrder(order:inputOrder): String
@@ -32,19 +33,25 @@ type ItemKitchen{
     status: String!
     orderItemInfo: OrderItemInfo!
 }
-input UpdateItemInput{
-    name: String
-    price: Int
-    img: String
-    description: String
-    type: String
-    tags: [String]
-    rate_ave: Float
-}
 
 input UpdateStatus{
 	itemID: ID!
 	newStatus: Status!
+}
+type ItemTwoLang{
+    id: ID!
+	name: String!
+	description: String!
+	price: Int!
+    status: String!
+	img: String!  # 可以是檔案路徑或網址
+	comments: [Comment!] # 先放著，以後如果要做給餐廳看所有評論的介面可以拿這個資料
+	orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊
+	type: String! 
+	englishName: String! 
+	englishDescription: String!
+	englishType: String!
+    type: String!
 }
 type Item{
 	id: ID!
@@ -54,8 +61,11 @@ type Item{
     status: String!
 	img: String!  # 可以是檔案路徑或網址
 	comments: [Comment!] # 先放著，以後如果要做給餐廳看所有評論的介面可以拿這個資料
-	orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊
+    orderItemInfo: OrderItemInfo # 值為null時表示不是在點菜的時候拿這道菜的資訊
+    type: String!
 }
+
+
 input CreateItemInput{
 	name: String!
     description: String!,
@@ -109,6 +119,10 @@ type Order{
 	items: [Item!]!
 	totalPrice: Int!
 	time: String!
+    customerId: String!
+    customerName: String!
+	arrivedTime: String!
+	isTakeOut: String!
 }
 type orderItem{
     id:String
