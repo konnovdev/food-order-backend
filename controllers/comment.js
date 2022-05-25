@@ -14,7 +14,7 @@ const postComment = async(req, res)=>{
     }
     let itemCommentId = uuidv4()
     try{
-        dbMutation(`INSERT INTO \`item_Comment\` VALUES('${itemCommentId}', '${req.body.itemId}', '${commentId}' )`)
+        dbMutation(`INSERT INTO \`Item_Comment\` VALUES('${itemCommentId}', '${req.body.itemId}', '${commentId}' )`)
     }catch(e){
         console.log(e)
         res.status(500).send("fail")
